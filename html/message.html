@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html class="um-frame">
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">	
+		<script src="../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+	</head>
+	<body>
+		<div class="um-frame" id="index">
+			<div class="um-content">
+			
+				<button onclick="capturePhoto();" class="p15">Capture Photo</button> <br>  
+			    <button onclick="capturePhotoEdit();" class="p15">Capture Editable Photo</button> <br>    
+			    <button class="p15" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>    
+			    <button class="p15" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>   
+			    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />    
+			    <img style="display:none;" id="largeImage" src="" />      
+				<!-- 			    
+				<div class="m15">
+					<button class="btn btn-inline mr30" onclick="openCamera()">打开相机</button>
+					<button class="btn btn-inline" onclick="openPhoto()">打开相册</button>
+				</div>
+                <div class="m15">
+                	<img src="../img/love.png" width="150" alt="" class="um-rounded um-img-responsive" id="camImg">
+                	<img src="../img/love.png" width="150" alt="" class="um-rounded um-img-responsive" id="photoImg">
+                </div>
+                -->   
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+/*
+var pictureSource;   // picture source   
+var destinationType; // sets the format of returned value 
+summerready = function (){
+	document.addEventListener("deviceready",onDeviceReady,false);
+}
+
+function onDeviceReady (){
+    pictureSource=navigator.camera.PictureSourceType;        
+	destinationType=navigator.camera.DestinationType;	  
+	$summer.alert(destinationType)
+}
+function openCamera (){
+	navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 , destinationType:destinationType.FILE_URI});  
+}
+function onPhotoDataSuccess(imageData) {        
+	alert(imageData);        
+	var camImg = document.getElementById('camImg');        
+	camImg.src = imageData; 
+} 
+
+function openPhoto(){
+	navigator.camera.getPicture(onPhotoURISuccess, onFail, { 
+		quality: 50,
+		destinationType: destinationType.FILE_URI,
+		sourceType: pictureSource.PHOTOLIBRARY 
+	});  
+}
+
+function onPhotoURISuccess(imageURI){
+	alert(imageURI)
+	var photoImg = document.getElementById('photoImg');        
+	photoImg.src = imageURI; 
+}
+function onFail(message) {      
+	alert('Failed because: ' + message);    
+} 
+*/
+var pictureSource;   // picture source   
+var destinationType; // sets the format of returned value  
+document.addEventListener("deviceready",onDeviceReady,false);  
+function onDeviceReady() {
+	pictureSource=navigator.camera.PictureSourceType;        
+	destinationType=navigator.camera.DestinationType;    
+}     
+function onPhotoDataSuccess(imageData) {        
+	// Uncomment to view the base64-encoded image data      //   
+	console.log(imageData);        
+	// Get image handle      //        
+	var smallImage = document.getElementById('smallImage');        
+	// Unhide image elements      //       
+	smallImage.style.display = 'block';        
+	// Show the captured photo      // The in-line CSS rules are used to resize the image      //       
+	smallImage.src = "data:image/jpeg;base64," + imageData; 
+} 
+// Called when a photo is successfully retrieved    //     
+function onPhotoURISuccess(imageURI) {        
+	// Uncomment to view the image file URI      //   
+	console.log(imageURI);        
+	// Get image handle      //       
+	var largeImage = document.getElementById('largeImage');        
+	// Unhide image elements      //      
+	largeImage.style.display = 'block';        
+	// Show the captured photo      // The in-line CSS rules are used to resize the image      //      
+	largeImage.src = imageURI;    
+}      
+// A button will call this function    //      
+function capturePhoto() {        
+	// Take picture using device camera and retrieve image as base64-encoded string       
+	navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,destinationType: destinationType.DATA_URL });    
+}      
+// A button will call this function    //     
+function capturePhotoEdit() {        
+	// Take picture using device camera, allow edit, and retrieve image as base64-encoded string      
+	navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,        destinationType: destinationType.DATA_URL });    
+}      
+// A button will call this function    //      
+function getPhoto(source) {        
+	// Retrieve image file location from specified source    
+	navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,        destinationType: destinationType.FILE_URI,        sourceType: source });    
+}      
+// Called if something bad happens.    //     
+function onFail(message) {      
+	alert('Failed because: ' + message);    
+}     
+</script>
