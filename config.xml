@@ -18,7 +18,8 @@
   <windowSoftInputMode>stateHidden</windowSoftInputMode>  
   <permission id="android.permission.CAMERA"/>  
   <permission id="android.permission.INTERNET"/>  
-  <import/>
+  <import id="cordova-plugin-device-motion" type="web" ref="cordova"/>  
+  <import id="cordova-plugin-device" type="web" ref="cordova"/> 
 </application><!--
 【屏幕显示方向】
   screenOrientation: 屏幕显示方向
