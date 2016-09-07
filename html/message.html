@@ -41,6 +41,7 @@
 	</body>
 </html>
 <script>
+var path;
 function camera(){
 	$camera.open({
 		bindfield : "image",
@@ -49,6 +50,19 @@ function camera(){
 }
 function callback(args){
 	$summer.alert(args);
+	path = args.image.imgPath;
+	$("#uploadImg").attr("src",path);
+	alert(path);
+}
+function file(){
+    $file.upload({
+        "url" : "http://123.103.9.206:7102/umserver/upload",//上传服务器端路径
+        "filename" : path,//上传文件的路径+文件名
+        "bindfield" : "upload",//上传后的返回值，类型为JSONObject（其中从键值url可以获取上传后该文件的url）
+        "callback" : function uploadImageCallback(){
+            alert(upload.url)
+        }
+   })
 }
 /*
 var pictureSource;   // picture source   
