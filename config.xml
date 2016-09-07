@@ -17,9 +17,12 @@
   <isfullscreen>false</isfullscreen>  
   <windowSoftInputMode>stateHidden</windowSoftInputMode>  
   <permission id="android.permission.CAMERA"/>  
+  <permission id="android.permission.FLASHLIGHT"/>  
+  <permission id="android.permission.INTERNAL_SYSTEM_WINDOW"/>  
   <permission id="android.permission.INTERNET"/>  
-  <import id="cordova-plugin-device-motion" type="web" ref="cordova"/>  
-  <import id="cordova-plugin-device" type="web" ref="cordova"/> 
+  <permission id="android.permission.MTWEAK_USER"/>  
+  <fullScreen>true</fullScreen>  
+  <import id="cordova-plugin-battery-status" type="web" ref="cordova"/> 
 </application><!--
 【屏幕显示方向】
   screenOrientation: 屏幕显示方向

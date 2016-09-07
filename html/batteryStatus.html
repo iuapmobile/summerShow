@@ -14,8 +14,27 @@
 	<body>
 		<div class="um-frame" id="index">
 			<div class="um-content">
-				<p>Hello iUAP Mobile, this is a blank frame</p>
+				<p>batteryStatus</p>
+				<div class="p20">
+				    <button class="btn" onclick="openBatt()">打开电池信息</button>
+				</div>
 			</div>
 		</div>
 	</body>
+<script>
+summerready = function (){
+    
+
+    
+}
+
+function openBatt(){
+    //window.addEventListener("batterystatus", onBatteryStatus, false);
+    summer.batterystatus(function(status){
+        alert(123)
+        alert("Level: " + status.level + " isPlugged: " + status.isPlugged);
+    });
+}
+
+</script>
 </html>

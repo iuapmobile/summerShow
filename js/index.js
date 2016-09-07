@@ -18,7 +18,9 @@ function isOpened(frmName){
 }
 
 function openTab(type,tid){
+	
     var header = $summer.byId('header');
+    $summer.fixStatusBar(header);
     var headerPos = $summer.offset(header);
     var footer = $summer.byId('footer');
     var footerPos = $summer.offset(footer);

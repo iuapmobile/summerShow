@@ -21,10 +21,11 @@
 		</div>
 	</body>
 <script>
-//var watchID;
+var watchID;
 function openWa(){
-    //var options = { frequency: 3000 };  // Update every 3 seconds
-   // watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+    var options = { frequency: 3000 };  // Update every 3 seconds
+    watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+    /*
     summer.watchAcceleration({frequency: 1000},function(acceleration){
         alert('Acceleration X: ' + acceleration.x + '\n' +
           'Acceleration Y: ' + acceleration.y + '\n' +
@@ -33,8 +34,9 @@ function openWa(){
     },function(){
         alert('onError!');
     });
+    */
 }
-/*
+
 function onSuccess(acceleration) {
     alert('Acceleration X: ' + acceleration.x + '\n' +
           'Acceleration Y: ' + acceleration.y + '\n' +
@@ -45,7 +47,7 @@ function onSuccess(acceleration) {
 function onError() {
     alert('onError!');
 }
-*/
+
 summerready = function (){
 
 }      
