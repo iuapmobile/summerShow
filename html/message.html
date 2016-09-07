@@ -41,6 +41,15 @@
 	</body>
 </html>
 <script>
+function camera(){
+	$camera.open({
+		bindfield : "image",
+		callback : "callback()"	
+	})
+}
+function callback(args){
+	$summer.alert(args);
+}
 /*
 var pictureSource;   // picture source   
 var destinationType; // sets the format of returned value 
