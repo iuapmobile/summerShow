@@ -9,6 +9,9 @@
         <link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listview.css">
 
         <style>
+            html,body{
+                overflow:auto;
+            }
         	.msg-info {
         		position: relative;
         	}
@@ -93,7 +96,7 @@
         			"lastMsg" : "各位同仁，跟据国务院发布的放假安排，2016年元旦、春节放假安排如下。",
         			"lastTime" : "12:21"
         		}];
-        		for(var i=0,len=20;i<len;i++){
+        		for(var i=0,len=10;i<len;i++){
         			jsonArray.push({
         				"sender" : "集团行政部",
         				"img" : "../img/b"+i%3+".png",

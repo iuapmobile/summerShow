@@ -25,14 +25,16 @@
 </html>
 <script>
 	summerready = function (){
-		var sid = summer.pageParam.id;
+	    var header  = $summer.byId("header");
+	    $summer.fixStatusBar(header);
+		var name = summer.pageParam.id;
 		var y = $summer.offset($summer.byId('header')).h;
 	    var width = $summer.offset(document.getElementsByTagName("body")[0]).w;		
 	    var height = $summer.offset($summer.byId('main')).h;
-
+        
 	    summer.openFrame({
-	        name: 'newFrame',
-	        url: 'html/newFrame.html',
+	        name: name,
+	        url: 'html/'+name+'.html',
 	        bounces: true,
 	        rect: {
 	            x: 0,

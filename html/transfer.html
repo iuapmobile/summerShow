@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="um-frame">
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">	
+		<script src="../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+	</head>
+	<body>
+		<div class="um-frame" id="index">
+			<div class="um-content">
+				<p>transfer测试</p>
+				<div class="p20">
+				    <button class="btn" onclick="downloadImage()">下载文件</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+summerready = function(){
+    
+}
+</script>
+<script type="text/javascript" charset="utf-8">
+  //下载图片
+    function downloadImage(){
+        /*
+        var fileTransfer = new FileTransfer();
+        var uri = encodeURI("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png");
+        fileTransfer.download(
+            uri,
+            fileURL,
+            function(entry) {
+                alert("download complete: " + entry.toURL());
+            },
+            function(error) {
+                alert("download error source " + error.source);
+                alert("download error target " + error.target);
+                alert("upload error code" + error.code);
+            },
+            null,
+            {
+               
+            }
+        );
+    
+        return;
+        */
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+            alert('打开的文件系统: ' + fs.name);
+            var url = 'http://www.hangge.com/blog/images/logo.png';
+            
+            fs.root.getFile('hangge.png', { create: true, exclusive: false },
+            function (fileEntry) {
+                download(fileEntry, url);
+            }, onErrorCreateFile);
+     
+        }, onErrorLoadFs);
+    }
+ 
+  //下载文件
+    function download(fileEntry, uri) {
+        var fileTransfer = new FileTransfer();
+        var fileURL = fileEntry.toURL();
+ 
+        fileTransfer.download(
+            uri,
+            fileURL,
+            function (entry) {
+                alert("下载成功！");
+                alert("文件保存位置: " + entry.toURL());
+            },
+            function (error) {
+                alert("下载失败！");
+                alert("error source " + error.source);
+                alert("error target " + error.target);
+                alert("error code" + error.code);
+            },
+            null, // or, pass false
+            {
+                //headers: {
+                    //"Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
+                //}
+            }
+        );
+    }
+    //文件创建失败回调
+    function  onErrorCreateFile(error){
+        alert("文件创建失败！")
+    }
+    //FileSystem加载失败回调
+    function  onErrorLoadFs(error){
+        alert("文件系统加载失败！")  
+    }
+</script>

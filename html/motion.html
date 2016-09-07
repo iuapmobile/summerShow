@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html class="um-frame">
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">	
+		<script src="../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+	</head>
+	<body>
+		<div class="um-frame" id="index">
+			<div class="um-content">
+				<p>device-motion</p>
+				<button class="btn" onclick="openWa()">打开watch</button>
+				<button class="btn" onclick="clearWa()">删除watch</button>
+			</div>
+		</div>
+	</body>
+<script>
+var watchID;
+function openWa(){
+    var options = { frequency: 3000 };  // Update every 3 seconds
+    watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+    /*
+    summer.watchAcceleration({frequency: 1000},function(acceleration){
+        alert('Acceleration X: ' + acceleration.x + '\n' +
+          'Acceleration Y: ' + acceleration.y + '\n' +
+          'Acceleration Z: ' + acceleration.z + '\n' +
+          'Timestamp: '      + acceleration.timestamp + '\n');
+    },function(){
+        alert('onError!');
+    });
+    */
+}
+
+function onSuccess(acceleration) {
+    alert('Acceleration X: ' + acceleration.x + '\n' +
+          'Acceleration Y: ' + acceleration.y + '\n' +
+          'Acceleration Z: ' + acceleration.z + '\n' +
+          'Timestamp: '      + acceleration.timestamp + '\n');
+}
+
+function onError() {
+    alert('onError!');
+}
+
+summerready = function (){
+
+}      
+function clearWa(){
+    
+    alert('清除成功时');
+    //navigator.accelerometer.clearWatch(watchID);
+    summer.clearWatch();
+    alert("成功")
+}  
+</script>
+</html>

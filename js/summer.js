@@ -773,6 +773,7 @@
         // }
 		if($summer.os == "ios" || $summer.os == "pc"){
 			$(el).children().css("top","20px");
+			//alert($(el).children().css("top"))
 			var strSV = summer.systemVersion;
             var numSV = parseInt(strSV,10);
             var fullScreen = summer.fullScreen;
@@ -982,6 +983,14 @@
 		s = {};
 		w.summer = s;
 	}
+	/*
+	function judgement(plugins){
+		if (typeof plugins ==='undefined'){
+			return false;
+		}
+		
+	}
+	*/
     s.window = {
         openFrame : function(json, successFn, errFn){
             json["animation"] = json["animation"] || {};
@@ -1278,4 +1287,36 @@
 		if(s.canrequire())
             return s.cordova.require('summer-plugin-frame.XFrame').addEventListener(json, successFn, errFn);
 	};
+	
+	//加速计
+	s.getAcceleration = function (onSuccess,onError){
+		return navigator.accelerometer.getCurrentAcceleration(onSuccess,onError);
+	};
+	s.watchAcceleration = function (options,onSuccess,onError){
+		var watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);  
+		return watchID;  
+	};
+	//手机信息
+	s.model = function (){
+		return device.model;
+	};
+	s.uuid  = function (){
+		return device.uuid;
+	};
+	s.version = function (){
+		return device.version;
+	};
+	s.platform = function(){
+		return device.platform;
+	};
+	s.manufacturer = function (){
+		return device.manufacturer;
+	};
+	s.serial = function (){
+		return device.serial;
+	};
+	//电池状态
+	s.batterystatus = function (fn){
+		return window.addEventListener("batterystatus", fn, false);
+	}
 }(window,summer);
