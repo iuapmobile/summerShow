@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/font-icons.css">
+		<link rel="stylesheet" href="../../css/iuapmobile.um.css"/>
+		<script src="../../js/jquery.min.js" ></script>
+		<script src="../../js/summer.js" ></script>
+		<script src="../../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<style>
+			h4{
+				color:#555;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div class="um-win" id="index">
+			<div id="header" class="um-header">
+				<a href="#" class="um-back">返回</a>
+				<h3>日期</h3>
+			</div>
+			<div id="main" class="um-content p15">
+			<h4>普通日期</h4>	
+                <input type="date" name="date" value="2015-01-01" class="form-control">
+            <h4 class="mt40">带时分秒日期</h4>    
+                <input type="datetime-local" name="date" value="2015-01-01T12:12:12" class="form-control">
+			</div>
+			 
+		</div>
+		<script>
+			$('.um-back').click(function (){
+				summer.closeWin();
+			});
+		</script>
+	</body>
+</html>

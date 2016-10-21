@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/font-icons.css">
+		<link rel="stylesheet" href="../../css/iuapmobile.um.css"/>
+		<script src="../../js/jquery.min.js" ></script>
+		<script src="../../js/summer.js" ></script>
+		<script src="../../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<style>
+			a{
+				color:#555;
+				
+			}
+			div.um-label{
+				border-bottom:1px solid #ccc;
+				height:50px;
+			}
+			h4{
+				color:#555;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="um-win" id="index">
+			<div id="header" class="um-header">
+				<a href="#" class="um-back">返回</a>
+				<h3>图表</h3>
+			</div>
+			<div id="main" class="um-content p15">
+				<h4>echart分类</h4>
+				<a href="echart_detail/bar.html">
+					<div class="um-label um-box-justify">
+	                	<div>柱状图</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+                	</div>
+				</a>
+				<a href="echart_detail/line.html">
+					<div class="um-label um-box-justify">
+	                	<div>折线图</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+                	</div>
+				</a>
+				<a href="echart_detail/pan.html">
+					<div class="um-label um-box-justify">
+	                	<div>饼状图</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+                	</div>
+				</a>
+			</div>
+		</div>
+		<script>
+			$('.um-back').click(function (){
+				summer.closeWin();
+			});
+		</script>
+	</body>
+</html>

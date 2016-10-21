@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">	
+		<script src="../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../js/summer.js" ></script>		
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script>
+			$(function(){
+				$('.um-back').click(function(){		 
+			 		summer.closeWin({			 			 
+			 		});
+		 		});
+			})
+		</script>
+		<style>
+			h4{
+				color:#555;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div class="um-win" id="index">
+			<div class="um-header" >
+			<a href="#" class="um-back">返回</a>
+				<h3>导航栏</h3>
+			</div>
+
+			<div class="um-content p15">
+				 <h4>音频播放</h4>
+				  <audio src="../resource/flower.mp3" controls     loop>
+							您的浏览器不支持AUDIO标签
+					</audio><span> </span>
+				<h4>视频播放</h4>
+					<video src="../resource/wildlife.mp4" width="300" height="240" controls   poster="../img/qie.jpg"  loop>
+						您的浏览器不支持Video标签
+					</video> <span> </span>
+			</div>
+
+			<div class="um-footer">
+				
+			</div>
+		</div>
+	</body>
+</html>

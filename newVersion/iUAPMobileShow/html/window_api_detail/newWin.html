@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../../css/font-icons.css">	
+		<script src="../../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../../js/summer.js" ></script>		
+		<script src="../../js/jquery.min.js" ></script>
+		<script src="../../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script>
+			 
+		</script>
+	</head>
+	<body>
+		<div class="um-win" id="index">
+			<div class="um-header" id="header">
+			<a href="#" class="um-back">关闭win页面</a>
+				<h3>newWin页面</h3>
+			</div>
+
+			<div class="um-content p15" id="main">
+				  
+                
+
+			</div>
+
+			<div class="um-footer">
+				
+			</div>
+		</div>
+		<script>
+			$('.um-back').click(function(){
+				 
+					summer.closeWin();
+				});
+			summerready=function(){
+				var y = $summer.offset($summer.byId('header')).h;
+			    var width = $summer.offset(document.getElementsByTagName("body")[0]).w;		
+			    var height = $summer.offset($summer.byId('main')).h;
+			    summer.openFrame({
+			    	id:'main',
+			    	url:'html/window_api_detail/main.html',
+			    	rect:{
+			    		x:0,
+			    		y:y,
+			    		w:width,
+			    		h:height
+			    	}
+			    });
+			    summer.openFrame({
+			    	id:'main2',
+			    	url:'html/window_api_detail/main2.html',
+			    	rect:{
+			    		x:0,
+			    		y:height/2,
+			    		w:width,
+			    		h:height
+			    	}
+			    });
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../../css/font-icons.css">
+		<link rel="stylesheet" href="../../../css/iuapmobile.um.css"/>
+        <link rel="stylesheet" href="../../../css/swipeContent.css">
+
+         <style>
+        	html,body,.um-page{height:100%}
+            .swipe-words {
+            	background-image:url("../../../img/inforbg.jpg");
+            	background-color: rgba(0,0,0,0);
+            	color: #efeff4;
+            }
+        </style>
+
+		<script src="../../../js/jquery.min.js" ></script>
+		<script src="../../../js/summer.js" ></script>
+		<script src="../../../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../../../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+        <script src="../../../js/swipe.js" ></script>
+        <script src="../../../js/swipeContent.js" ></script>
+        <script src="../../../js/knockout-2.2.0.js"></script>
+	</head>
+	<body>
+		<div class="um-page" id="index">
+			<div id="header" class="um-header">
+				<a href="../photoslide.html" class="um-back">返回</a>
+				<h3>画廊3-图文滚动</h3>
+			</div>
+			<div id="main" class="um-content pr15 pl15">
+				
+                <div id="slider" class="swipe ">
+                	<div class="swipe-wrap" data-bind="foreach:data">
+                		<div>
+                			<img data-bind="attr:{'src':img}">
+                			<div class="swipe-words pl10 pr10">
+                				<h2 data-bind="text:title" class="f16"></h2>
+                				<p class="f14 mb5">发布时间：
+                					<span data-bind="text:pubdate"></span>
+                					<span class="ml15 mr5 ti-eye um-blue"></span>
+                					<span data-bind="text:hits"></span>
+                				</p>
+                				<p data-bind="text: brief" class="f14"></p>
+                			</div>
+                		</div>
+                	</div>
+                </div>
+
+			</div>
+			<div class="um-footer">
+				<div class="um-tabbar-foot">
+					<a id="item0" href="#" class="um-footerbar-item active"> <i class="ti-comments f20"></i>
+					<div class="um-tabbar-item-text">
+						消息
+					</div> </a>
+					<a id="item1" href="#" class="um-footerbar-item"> <i class="ti-notepad f20"></i>
+					<div class="um-tabbar-item-text">
+						日程
+					</div> </a>
+					<a id="item2" href="#" class="um-footerbar-item "> <i class="ti-agenda f20"></i>
+					<div class="um-tabbar-item-text">
+						通讯录
+					</div> </a>
+					<a id="item3" href="#" class="um-footerbar-item"> <i class="ti-user f20"></i>
+					<div class="um-tabbar-item-text">
+						我
+					</div> </a>
+				</div>
+			</div>
+		</div>
+
+        <script>
+        	$(function() {
+        		var data = [{
+        			"img":"../../../img/swipeNews1.png",
+        			"title":"中企首次拿下阿联酋电力项目 金额达18亿美元",
+        			"pubdate": "2015-10-18 10:20:27",
+        			"brief":"据新华社电 阿联酋迪拜水电局近日宣布，中国哈尔滨电气国际工程公司(哈电国际)和沙特电力组成的联合体预中标迪拜Hassyan清洁煤电站一期项目，项目金额18亿美元。",
+        			"hits": 613
+        		},{
+        			"img":"../../../img/swipeNews2.png",
+        			"title":"全球金融体系恐将重新洗牌",
+        			"pubdate": "2015-10-18 10:20:27",
+        			"brief":"哈电国际和沙特电力组成的联合体预中标阿联酋一清洁煤电站项目，金额达18亿美元据新华社电 阿联酋迪拜水电局近日宣布",
+        			"hits": 570
+        		},{
+        			"img":"../../../img/swipeNews3.png",
+        			"title":"房地产税立法或再次延期",
+        			"pubdate": "2015-10-18 10:20:27",
+        			"brief":"作为建立楼市长效机制中不可或缺的政策设计，多年来，房地产税的推进却始终徘徊不前。",
+        			"hits": 890
+        		}];
+        		var ViewModel = function(){};
+        		var viewModel = new ViewModel();
+        		viewModel.data = ko.observableArray(data);
+        		ko.applyBindings(viewModel);
+        		var slider = $("#slider").swipeContent({
+        			auto: 2500,
+        			continuous : true		
+        		});		
+        	 });
+        </script>
+	</body>
+</html>

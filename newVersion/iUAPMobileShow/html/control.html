@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/iuapmobile.um.css"/>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/summer.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<style>
+			*{
+				font-family:"Helvetica Neue", Helvetica, "Microsoft Yahei", STHeiTi, Tahoma, Arial, Roboto, "Droid Sans", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-self;
+				color:#282828;			
+			}
+			.um-content a div.um-label{border-bottom: 1px solid #ccc;height:50px;}
+		</style>
+	</head>
+	<body>
+		<div class="um-page" id="index">
+			
+				<div id="header" class="um-header">
+					<a href="#" class="um-back">返回</a>
+					<h3 id='h-title'>UI控件</h3>
+				</div>
+			
+			
+			<div id="main" class="um-content p15">
+				<a href="#"  onclick="openWin('header')">
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/header.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>导航栏</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+				</a>
+				<a href="#" onclick="openWin('listview')" >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/listview.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>列表</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+                </a>
+                <a  href="#"  onclick="openWin('tabbar')" >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/tabbar.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>选项卡</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+                </a>
+                <a   href="#"  onclick="openWin('footer')" >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/foot.jpg" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>底部工具栏</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	             </a>
+	             <a href="#"  onclick="openWin('button')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/button.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>按钮</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	             </a>
+	             <a href="#"  onclick="openWin('input')" >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/input.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>输入框</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	             </a>
+	             <a href="#"  onclick="openWin('check')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/checkIcon.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>单、复选框</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('switch')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/switch.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>开关</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('range')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/range.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>滑动条</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('progressbar')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/progressbar.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>进度条</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('date')"   >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/date.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>日期</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('photo')"   >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/photo.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>图片</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('photoslide')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/photoslide.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>画廊</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('calendar')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/calendar.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>日历</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('map')"   >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/map.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>地图</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('connect')"   >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/connect.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>链接</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('label')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/label.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>标签</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('select')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/select.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>滚动选择器</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('pan')" >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/pan.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>面板</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('layout')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/layout.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>布局</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('form')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/form.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>表单</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('echart')" >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/echart.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>图表</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>
+	            <a href="#"  onclick="openWin('page')"  >
+	                <div class="um-label um-box-justify">
+	                	<div>
+	                		<img src="../img/uiImg/page.png" class="um-rounded mr10" width=30 height=30 alt="" />
+	                		<span>单页</span>
+	                	</div>
+	                	<div>
+	                		 <i class="ti-angle-right"></i>
+	                	</div>
+	                </div>
+	            </a>              
+			</div>			 
+		</div>
+		 <script>
+		 	
+		 	function openWin(type){
+		 		summer.openWin({
+		 			id:type,
+		 			url:"html/control_detail/"+type+".html"
+		 		});	 		
+		 	}
+		 	$('.um-back').click(function(){
+		 	 
+		 		summer.closeWin({
+		 			 
+		 		});
+		 	});
+		 </script>
+	</body>
+</html>

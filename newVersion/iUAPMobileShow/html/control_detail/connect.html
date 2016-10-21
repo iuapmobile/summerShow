@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/font-icons.css">
+		<link rel="stylesheet" href="../../css/iuapmobile.um.css"/>
+		<script src="../../js/jquery.min.js" ></script>
+		<script src="../../js/summer.js" ></script>
+		<script src="../../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<style>
+			h4{
+				color:#555;
+				margin-top:50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="um-page" id="index">
+			<div id="header" class="um-header">
+				<a href="#" class="um-back">返回</a>
+				<h3>链接</h3>
+			</div>
+			<div id="main" class="um-content p15">
+				<h4 class="mt15">普通a标签</h4>	
+	                <a href="#newPage1">a标签</a>
+	            <h4>带切换效果的a标签链接</h4>    
+	                <a href="#newPage1" data-transition="pop">带切换效果链接</a>
+	            <h4>添加按钮a标签</h4>    
+	                <a href="#" class="ti-plus"></a>
+	            <h4>移除按钮a标签</h4>    
+	                <a href="#" class="ti-minus"></a>
+	            <h4>保存按钮a标签</h4>    
+	                <a href="#" class="ti-save"></a>
+	            <h4>编辑按钮a标签</h4>    
+	                <a href="#" class="ti-pencil-alt"></a>
+			</div>
+			 
+			<div class="um-page" id="newPage1">
+            	<div class="um-header" >
+            		<a href="#" class="um-back">返回</a>
+            		<h3>newPage1</h3>
+            	</div>
+            	<div class="um-content">
+            		这是新的page页1
+            	</div>
+            	<div class="um-footer">		
+            	</div>
+            </div>
+			
+            <div class="um-page" id="newPage2">
+            	<div class="um-header" >
+            		<a href="#" class="um-back">返回</a>
+            		<h3>newPage2</h3>
+            	</div>
+            	<div class="um-content">
+            		这是新的page页2
+            	</div>
+            	<div class="um-footer">		
+            	</div>
+            </div>
+
+		</div>
+		<script>
+			$('#header .um-back').click(function (){
+				summer.closeWin();
+			});
+		</script>
+	</body>
+</html>

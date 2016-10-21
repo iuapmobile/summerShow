@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<script src="../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<style>
+			 *{
+			 	color:#555;
+			 }
+			 .um-label{
+			 	height:50px;
+			 	border-bottom:1px solid #ccc;
+			 }
+		</style>
+	</head>
+	<body class="um-bgc-white">
+		<div class="um-win" id="index">
+			<div class="um-header" >
+				<a href="#" class="um-back">返回</a>
+				<h3>窗口交互</h3>
+			</div>
+			<div class="um-content p15">
+				<a href="#" onclick="openNewWin('model')">
+					<div class="um-label um-box-justify">
+	                 	<div>模态框</div>
+	                 	<div>
+	                 		 <i class="ti-angle-right"></i>
+	                 	</div>
+                 	</div>	
+				</a>
+				<a href="#" onclick="openNewWin('page')">
+					<div class="um-label um-box-justify">
+	                 	<div>单页</div>
+	                 	<div>
+	                 		 <i class="ti-angle-right"></i>
+	                 	</div>
+                 	</div>	
+				</a>
+				<a href="#" onclick="openNewWin('sliderbar_left1')">
+					<div class="um-label um-box-justify">
+	                 	<div>左侧边栏(底部挤压)</div>
+	                 	<div>
+	                 		 <i class="ti-angle-right"></i>
+	                 	</div>
+                 	</div>	
+				</a>
+				<a href="#" onclick="openNewWin('sliderbar_left2')">
+					<div class="um-label um-box-justify">
+	                 	<div>左侧边栏(底部覆盖)</div>
+	                 	<div>
+	                 		 <i class="ti-angle-right"></i>
+	                 	</div>
+                 	</div>	
+				</a>
+				<a href="#" onclick="openNewWin('sliderbar_right')">
+					<div class="um-label um-box-justify">
+	                 	<div>右侧边栏</div>
+	                 	<div>
+	                 		 <i class="ti-angle-right"></i>
+	                 	</div>
+                 	</div>	
+				</a>
+				<a href="#" onclick="openNewWin('sliderbar_leftright')">
+					<div class="um-label um-box-justify">
+	                 	<div>左右侧边栏</div>
+	                 	<div>
+	                 		 <i class="ti-angle-right"></i>
+	                 	</div>
+                 	</div>	
+				</a>
+				<a href="#" onclick="openNewWin('sliderbar_footerconnect')">
+					<div class="um-label um-box-justify">
+	                 	<div>底部联动侧边栏</div>
+	                 	<div>
+	                 		 <i class="ti-angle-right"></i>
+	                 	</div>
+                 	</div>	
+				</a>
+				<a href="#" onclick="openNewWin('model_top')">
+					<div class="um-label um-box-justify">
+	                 	<div>顶部浮动菜单</div>
+	                 	<div>
+	                 		 <i class="ti-angle-right"></i>
+	                 	</div>
+                 	</div>	
+				</a>
+			 
+				 
+                  
+
+			</div>
+			 
+		</div>
+		<script>
+		 	function openNewWin(type){
+		 		summer.openWin({
+		 			id:type,
+		 			url:"html/window_detail/"+type+".html"
+		 		});	 		
+		 	}
+		 	$('.um-back').click(function(){
+		 		summer.closeWin({
+		 			 
+		 		});
+		 	});
+		 </script>
+	</body>
+</html>
