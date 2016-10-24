@@ -80,19 +80,19 @@ var workbench = {
                     +'<div class="um-footerbar">'
                         +'<a href="#" class="um-footerbar-item active" data-tar="' + settings.data[0].target + '">'
                             +'<div class="' + settings.data[0].iconfont + ' mb5"></div>'
-                            +'<div class="f12 lh1">{{first}}</div>'
+                            +'<div class="f14 lh1">{{first}}</div>'
                         +'</a>'
                         +'<a href="#" class="um-footerbar-item" data-tar="' + settings.data[1].target + '">'
                             +'<div class="' + settings.data[1].iconfont + ' mb5"></div>'
-                            +'<div class="f12 lh1">{{second}}</div>'
+                            +'<div class="f14 lh1">{{second}}</div>'
                         +'</a>'
                         +'<a href="#" class="um-footerbar-item" data-tar="' + settings.data[2].target + '">'
                             +'<div class="' + settings.data[2].iconfont + ' mb5"></div>'
-                            +'<div class="f12 lh1">{{third}}</div>'
+                            +'<div class="f14 lh1">{{third}}</div>'
                         +'</a>'
                         +'<a href="#" class="um-footerbar-item" data-tar="' + settings.data[3].target + '">'
                             +'<div class="' + settings.data[3].iconfont + ' mb5"></div>'
-                            +'<div class="f12 lh1">{{forth}}</div>'
+                            +'<div class="f14 lh1">{{forth}}</div>'
                         +'</a>'
                     +'</div>'
                 +'</div>',
@@ -149,6 +149,10 @@ var workbench = {
 			// 注册
 			Vue.component('um-applayout',AppLayout);
 		}else if(type=='um-layout-text'){
+			//var num=settings.data.length  tem={};
+			//if(parseInt(num/4)<1){
+			//	tem.template=
+			//}
 			var AppText = Vue.extend({
 				template: '<div class="um-grid">'
 							+'<div class="um-grid-row tc">'
@@ -220,7 +224,7 @@ var workbench = {
 				template: '<div class="um-listview-wrap" id="listview">'
                      	+'<ul class="um-list um-no-active"  >'
                      		+'<li class="um-listview-row" v-for="list in lists">'
-                     			+'<a href="#" class="um-list-item um-swipe-action um-no-icon">'
+                     			+'<a href="{{list.url}}" class="um-list-item um-swipe-action um-no-icon">'
                      				+'<div class="um-swipe-btns">'
                      					+'<span class="um-swipe-btn um-delete">删除</span>'
                      				+'</div>'
