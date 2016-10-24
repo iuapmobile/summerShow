@@ -149,10 +149,10 @@ var workbench = {
 			// 注册
 			Vue.component('um-applayout',AppLayout);
 		}else if(type=='um-layout-text'){
-			//var num=settings.data.length  tem={};
-			//if(parseInt(num/4)<1){
-			//	tem.template=
-			//}
+			var num=settings.data.length  tem={};
+			if(parseInt(num/4)<1){
+				tem.template=
+			}
 			var AppText = Vue.extend({
 				template: '<div class="um-grid">'
 							+'<div class="um-grid-row tc">'
