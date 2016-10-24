@@ -149,71 +149,24 @@ var workbench = {
 			// 注册
 			Vue.component('um-applayout',AppLayout);
 		}else if(type=='um-layout-text'){
-			var num=settings.data.length  tem={};
-			if(parseInt(num/4)<1){
-				tem.template=
-			}
+			 
 			var AppText = Vue.extend({
-				template: '<div class="um-grid">'
-							+'<div class="um-grid-row tc">'
-								 +'<div >'
-									+'<a href="#" class=" ">'
-										+'<div class="title">'+settings.data[0].text+'</div>'
-										+'<div class="f12 mt5">{{one}}</div>'
-									+'</a>'
-								+'</div>' 
-								+'<div>'
-									+'<a href="#" class="  ">'
-										+'<div class="title">'+settings.data[1].text+'</div>'
-										+'<div  class="f12 mt5">{{two}}</div>'
-									+'</a>'
-								+'</div>'
-								+'<div>'
-									+'<a href="#" class="  ">'
-										+'<div class="title">'+settings.data[2].text+'</div>'
-										+'<div  class="f12 mt5">{{three}}</div>'
-									+'</a>'
-								+'</div>'
-								+'<div>'
-									+'<a href="#" class="  ">'
-										+'<div class="title">'+settings.data[3].text+'</div>'
-										+'<div  class="f12 mt5">{{four}}</div>'
-									+'</a>'
-								+'</div>'
-							+'</div>'	
-							+'<div class="um-grid-row tc">'
-								 +'<div >'
-									+'<a href="#" class="   ">'
-										+'<div class="title">'+settings.data[4].text+'</div>'
-										+'<div class="f12 mt5">{{five}}</div>'
-									+'</a>'
-								+'</div>' 
-								+'<div class="addphoto"  >'
-									+'<a href="#" class=" ">'
-										+'<img src="img/add.png"/ width=20>'
-									+'</a>'
-								+'</div>'
-								+'<div >'
-									+'<a href="#" class="   ">'
-										+'<div class="title"></div>'
-										+'<div class="f12 mt5"></div>'
-									+'</a>'
-								+'</div>' 
-								+'<div >'
-									+'<a href="#" class="   ">'
-										+'<div class="title"></div>'
-										+'<div class="f12 mt5"></div>'
-									+'</a>'
-								+'</div>' 
-							+'</div>'									 
-                       +'</div>',
+				template: '<div class="ncontent" >'
+							+'<div class="alist fl um-grid" v-for="list in lists">'
+								+'<a href="{{list.url}}">'
+									+'<div class="title tc">{{list.text}}</div>'
+									+'<div class="f12 mt5 tc">{{list.title}}</div>'
+								+'</a>'
+							+'</div>'
+							+'<div class="alist fl um-grid nphoto">'
+								+'<a href="http://www.baidu.com">'
+									+'<img src="img/add.png"/ width=20>'
+								+'</a>'
+							+'</div>'
+						 +'</div>',							 
 				data: function(){
 			  		return{
-			    		 one:settings.data[0].title,
-						 two:settings.data[1].title,
-						 three:settings.data[2].title,
-						 four:settings.data[3].title,
-						 five:settings.data[4].title
+			    		 lists:settings.data
 			  		}
 			  	}
 			});

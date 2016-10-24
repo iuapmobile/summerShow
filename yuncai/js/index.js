@@ -95,11 +95,11 @@
 		]}
 	);
 	workbench.createComponent("um-layout-text", {
-		data: [{title:"待定标", text:"12"},
-			{title:"待收货", text:"3"},
-			{title:"待确认对账", text:"3"},
-			{title:"待发布", text:"5"},
-			{title:"待审批", text:"1"}
+		data: [{title:"待定标", text:"12","url":'http://www.baidu.com'},
+			{title:"待收货", text:"3","url":'http://www.baidu.com'},
+			{title:"待确认对账", text:"3","url":'http://www.baidu.com'},
+			{title:"待发布", text:"5","url":'http://www.baidu.com'},
+			{title:"待审批", text:"1","url":'http://www.baidu.com'}
 			 
 		]}
 	);
