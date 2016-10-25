@@ -57,10 +57,10 @@
 	padding:13px;
 }
 #home .um-grid-row{
-	border-bottom:0.5px solid rgba(230, 230, 230, 1);
+	border-bottom:1px solid rgba(230, 230, 230, 1);
 }
 #home .um-grid-row a{
-	border-right:0.5px solid rgba(230, 230, 230, 1);
+	border-right:1px solid rgba(230, 230, 230, 1);
 }
 /*消息列表样式*/
 .msg-info {
@@ -107,7 +107,7 @@
 				
 }
 .ncontent{
-	overflow:auto;
+	overflow:hidden;
 	border-bottom:1px solid rgba(230, 230, 230, 1);
 	
 }
