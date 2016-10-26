@@ -262,7 +262,7 @@
 					};
 
 					this._onDragStart(tapEvt, true);
-					evt.preventDefault();
+					//evt.preventDefault();
 				}
 
 				_on(document, 'mouseup', this._onDrop);
@@ -1056,7 +1056,7 @@ APPManager.prototype = {
 	},
 	runn : function(){
 		var el = document.getElementById("um-sortable");
-		Sortable.create(el);
+		Sortable.create(el,{handle:".um-black"});
 	},
 	close : function(){
 		$(document).on("click",function(){

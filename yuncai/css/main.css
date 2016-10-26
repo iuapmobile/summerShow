@@ -1,5 +1,12 @@
+.um-page{
+	background:#F8F8F8;
+}
+.ncontent{
+	background:#ffffff;
+}
 #uappmanager{
 	margin-top:10px;
+	background:#ffffff;
 }
 #um-sortable .um-small,#um-sortable .um-more{
 	width:25%;
@@ -46,9 +53,12 @@
 	margin-top:3px;
 	
 }
+.um-header-fixed .form-control:focus {outline: none;} 
 .um-header-fixed .form-control{
 	height:36px;
 	border-radius:5px 5px;
+	font-size:14px;
+	outline:none;
 }
 .um-input-group span[class^="t-"] + input.form-control{
 	padding-left:32px;

@@ -6,7 +6,7 @@
 				$(tar).addClass('active').siblings('.active').removeClass('active');	
 		});	
 	});	
-	workbench.createComponent("um-header", {placeholder:"iuapmobile 3.0"});
+	workbench.createComponent("um-header", {placeholder:"搜订单/商品"});
 	workbench.createComponent("um-banner", {
 		data: [
 			{content: "./img/g1.jpg"}, 
