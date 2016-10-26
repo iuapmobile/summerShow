@@ -73,25 +73,11 @@
 		}],
 		colum : 4
 	});
-	workbench.createComponent("um-footer", {
-		data: [{title:"消息", iconfont:"ti-comments"},
-			{title:"日程q", iconfont:"ti-notepad"},
-			{title:"通讯录", iconfont:"ti-agenda"},
-			{title:"设置", iconfont:"ti-user"}
-		]}
-	);
 	workbench.createComponent("um-footer-custom", {
 		data: [{title:"首页", iconfont:"icon-home",target:'#home' },
 			{title:"消息", iconfont:"icon-msg",target:'#message' },
 			{title:"商品", iconfont:"icon-goods",target:'#goods'},
 			{title:"我的", iconfont:"icon-mine",target:'#mine'}
-		]}
-	);
-	workbench.createComponent("um-applayout", {
-		data: [{title:"美食", img:"./img/mt_food.png"},
-			{title:"电影", img:"./img/mt_mv.png"},
-			{title:"酒店", img:"./img/mt_hotal.png"},
-			{title:"KTV", img:"./img/mt_ktv.png"}
 		]}
 	);
 	workbench.createComponent("um-layout-text", {
@@ -134,12 +120,6 @@
         		}        
 		]}
 	);
-	/*
-	workbench.createComponent("um-APPManager", {
-				data : [{label:"审批",icon:'ss.png'},{label:"新闻",icon:'xw.png'}],
-				colum: "4"
-	});
-*/
 new Vue({
 	  	el: '#body0',
 	  	data: {
