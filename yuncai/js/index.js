@@ -7,6 +7,11 @@
 		});	
 	});	
 	workbench.createComponent("um-header", {placeholder:"搜订单/商品"});
+	workbench.createComponent("um-header-text", {
+		data: [
+			{title: "消息",bgc:'rgba(246, 246, 246, 1)'}, 
+		]
+    });
 	workbench.createComponent("um-banner", {
 		data: [
 			{content: "./img/g1.jpg"}, 
@@ -93,7 +98,7 @@
 		data: [{
         			"sender" : "询报价",
         			"img" : "./img/org1.png",
-        			"msgNum" : 3,
+        			"msgNum" : '3',
         			"lastMsg" : "收到2份#关于“毕节吧电脑采购询价”",
 					"url":'http://www.baidu.com'
         			 
@@ -117,7 +122,61 @@
         			"msgNum" : '',
         			"lastMsg" : "系统维护通知",
 					"url":'http://www.baidu.com'
-        		}        
+        		},{
+        			"sender" : "询报价",
+        			"img" : "./img/org1.png",
+        			"msgNum" : '3',
+        			"lastMsg" : "收到2份#关于“毕节吧电脑采购询价”",
+					"url":'http://www.baidu.com'
+        			 
+        		},{
+        			"sender" : "订单",
+        			"img" : "./img/org2.png",
+        			"msgNum" : '',
+        			"lastMsg" : "您的订单已经安排发货",
+					"url":'http://www.hao123.com'
+        		 
+        		},{
+        			"sender" : "对账",
+        			"img" : "./img/org3.png",
+        			"msgNum" : '2',
+        			"lastMsg" : "金立集团发来一封对账单",
+					"url":'http://www.sina.com.cn/'
+        		 
+        		},{
+        			"sender" : "公告",
+        			"img" : "./img/org4.png",
+        			"msgNum" : '',
+        			"lastMsg" : "系统维护通知",
+					"url":'http://www.baidu.com'
+        		},{
+        			"sender" : "询报价",
+        			"img" : "./img/org1.png",
+        			"msgNum" : '3',
+        			"lastMsg" : "收到2份#关于“毕节吧电脑采购询价”",
+					"url":'http://www.baidu.com'
+        			 
+        		},{
+        			"sender" : "订单",
+        			"img" : "./img/org2.png",
+        			"msgNum" : '',
+        			"lastMsg" : "您的订单已经安排发货",
+					"url":'http://www.hao123.com'
+        		 
+        		},{
+        			"sender" : "对账",
+        			"img" : "./img/org3.png",
+        			"msgNum" : '2',
+        			"lastMsg" : "金立集团发来一封对账单",
+					"url":'http://www.sina.com.cn/'
+        		 
+        		},{
+        			"sender" : "公告",
+        			"img" : "./img/org4.png",
+        			"msgNum" : '',
+        			"lastMsg" : "系统维护通知",
+					"url":'http://www.baidu.com'
+        		}                        
 		]}
 	);
 new Vue({

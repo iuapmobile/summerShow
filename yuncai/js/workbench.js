@@ -26,6 +26,19 @@ var workbench = {
 			});
 			// 注册
 			Vue.component('um-header', header);
+		}else if(type=='um-header-text'){
+			var headertext = Vue.extend({
+			  	template: '<div   class="um-header-fixed" style="background:'+settings.data[0].bgc+'">'
+						+'<p>{{title}}</p>'
+						+'</div>',
+				data: function(){
+					return {
+						title : settings.data[0].title,				
+					}
+				}
+			});
+			// 注册
+			Vue.component('um-header-text', headertext);
 		}else if (type == "um-banner"){
 			var islider = new iSlider({
     			type: 'pic',
