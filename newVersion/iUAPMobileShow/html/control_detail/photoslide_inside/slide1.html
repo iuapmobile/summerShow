@@ -7,16 +7,21 @@
 		<link rel="stylesheet" href="../../../css/font-icons.css">
 		<link rel="stylesheet" href="../../../css/iuapmobile.um.css"/>
         <link rel="stylesheet" type="text/css" href="../../../css/islider.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/islider.css">
         <style>
         	.iSlider-wrapper {
         		height: 150px;
         	}
         </style>
 
+      
+
 		<script src="../../../js/jquery.min.js" ></script>
 		<script src="../../../js/summer.js" ></script>
 		<script src="../../../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
 		<script src="../../../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+        <script src="../../../js/islider.js"></script>
+      
         <script src="../../../js/islider.js"></script>
         <script>
         	$(function() {
@@ -57,11 +62,12 @@
 	<body>
 		<div class="um-page" id="index">
 			<div id="header" class="um-header">
-			<a href="../photoslide.html" class="um-back">返回</a>
+			<a href="#" class="um-back">返回</a>
 				<h3>轮播1</h3>
 			</div>
 			<div id="main" class="um-content">
 				
+                
                 <div class="um-row"><div id="iSlider-wrapper" class="iSlider-wrapper"></div></div>
 
 			</div>
@@ -86,5 +92,10 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			$('.um-back').click(function (){
+				summer.closeWin();
+			});
+		</script>
 	</body>
 </html>

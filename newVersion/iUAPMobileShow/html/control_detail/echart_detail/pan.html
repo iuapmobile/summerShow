@@ -15,7 +15,7 @@
 	<body>
 		<div class="um-page" id="index">
 			<div id="header" class="um-header">
-				<a href="../echart.html" class="um-back">返回</a>
+				<a href="#" class="um-back">返回</a>
 				<h3>饼状图</h3>
 			</div>
 			<div id="main" class="um-content">
@@ -46,6 +46,9 @@
 		</div>
 
         <script>
+        	$('.um-back').click(function (){
+				summer.closeWin();
+			});
             $(function () {		
                 //基于准备好的dom,初始化echarts实例
         		var myChart=echarts.init(document.getElementById('myChart'));

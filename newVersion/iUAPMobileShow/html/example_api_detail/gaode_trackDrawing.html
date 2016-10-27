@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">   
+		<title>浏览器定位</title>
+		<link rel="stylesheet" href="../../css/font-icons.css">
+		<link rel="stylesheet" href="../../css/iuapmobile.um.css">		
+		<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+		<script src="../../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+		<script src="../../js/summer.js" ></script>
+		<script src="../../js/jquery.min.js" ></script>
+		<script src="../../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+        <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=8496260ee2376a81df111fbf95348742">/*此处引用高德插件，须带上开发key,请自行替换  */</script>
+        <style>
+        	.amap-touch-toolbar .amap-zoomcontrol{
+        		bottom:-30px;
+        		right:0px;
+        	}       
+        </style>
+	</head>
+	<body>
+		<div class="um-win" id="index">
+			<div id="header" class="um-header">
+				<a href="#" class="um-back">返回</a>
+				<h3 class="ditu">高德地图轨迹绘制</h3>		 
+			</div>
+			<div id="main" class="um-content">				
+                <div id='container'></div>
+				<div class="button-group mr20">
+				    <input type="button" class="button" value="开始记录" id="start"/>
+				    <input type="button" class="button" value="停止记录" id="stop"/>
+				    <input type="button" class="button" value="查看路径" id="viewPath"/>
+				</div>
+			</div>			
+            
+		</div>
+		<script>
+			$('.um-back').click(function(){
+				 summer.closeWin();
+			});
+		</script>
+       <script type="text/javascript">  
+       $('#container').parent().css('position','relative');
+	    var map, geolocation,lineArr=[];
+	    //加载地图，调用浏览器定位服务
+	    map = new AMap.Map('container', {
+	        resizeEnable: true,
+	        zoom:11,       
+	    });
+	    map.plugin(['AMap.Geolocation','AMap.Scale','AMap.ToolBar'], function() {    //添加定位控件
+	        geolocation = new AMap.Geolocation({
+	            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+	            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+	            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+	            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+	            buttonPosition:'RB'
+	        });
+	       var  scale=new AMap.Scale();
+	       var  toolbar=new AMap.ToolBar();
+	        map.addControl(geolocation);
+	        map.addControl(scale);
+	        map.addControl(toolbar);  
+	        geolocation.getCurrentPosition();      
+	    });    
+	     var timer,n=0;
+	     AMap.event.addDomListener(document.getElementById('start'), 'click', function() {
+	     	if(n==0){
+	     		n++;
+	     		$('#start').css('background','green');
+	     		$('#stop').css('background','#0D9BF2');
+	     		$('#viewPath').css('background','#0D9BF2');
+	     		timer=setInterval(function(){
+		         geolocation.getCurrentPosition();
+		         AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+		         AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息	 
+		     	},10000)    
+	     	}            
+	    }, false);
+	    AMap.event.addDomListener(document.getElementById('stop'), 'click', function() {
+	    	alert('开始停止记录');
+	    	$('#start').css('background','#0D9BF2');
+	     	$('#stop').css('background','red')
+	     	$('#viewPath').css('background','#0D9BF2');
+	         clearInterval(timer);
+	         lineArr=[];
+	         n=0;
+	    }, false);   
+	     AMap.event.addDomListener(document.getElementById('viewPath'), 'click', function() {
+	         $('#viewPath').css('background','green');
+	         $('#start').css('background','#0D9BF2');
+	         $('#stop').css('background','#0D9BF2');
+	         var polyline = new AMap.Polyline({
+	            map: map,
+	            path: lineArr,
+	            strokeColor: "#00A",  //线颜色
+	            strokeOpacity: 1,     //线透明度
+	            strokeWeight: 3,      //线宽
+	            strokeStyle: "solid"  //线样式
+	        });
+	        alert('开始绘制轨迹');
+	    },false);
+	    //解析定位结果
+	    function onComplete(data) {
+	      	/*alert('经度：' + data.position.getLng()+'纬度：' + data.position.getLat());*/
+	        var lngX=data.position.getLng();
+	        var latY=data.position.getLat();
+	        lineArr.push([lngX,latY]); 
+	        console.log(lineArr);          
+	    }
+	    //解析定位错误信息
+	    function onError(data) {
+	        document.getElementById('tip').innerHTML = '定位失败';
+	    }
+	    
+</script>
+	</body>
+</html>

@@ -28,7 +28,7 @@
 	<body>
 		<div class="um-page" id="index">
 			<div id="header" class="um-header">
-				<a href="../photoslide.html" class="um-back">返回</a>
+				<a href="#" class="um-back">返回</a>
 				<h3>画廊3-图文滚动</h3>
 			</div>
 			<div id="main" class="um-content pr15 pl15">
@@ -72,7 +72,11 @@
 				</div>
 			</div>
 		</div>
-
+		<script>
+			$('.um-back').click(function (){
+				summer.closeWin();
+			});
+		</script>
         <script>
         	$(function() {
         		var data = [{

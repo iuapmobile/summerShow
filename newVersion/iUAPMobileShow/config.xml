@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <application push_enable="true"> 
   <app_start>index.html</app_start>  
   <app_name>iUAPMobileShow</app_name>  
@@ -16,7 +17,7 @@
   <statebarstyle>dark</statebarstyle>  
   <isfullscreen>false</isfullscreen>  
   <windowSoftInputMode>stateHidden</windowSoftInputMode>  
-  <permission id="android.permission.ACCESS_FINE_LOCATION"/>  
+  <permission id="android.permission.ACCESS_FINE_LOCATION"></permission>  
   <permission id="android.permission.ACCESS_MOCK_LOCATION"/>  
   <permission id="android.permission.ACCESS_NETWORK_STATE"/>  
   <permission id="android.permission.ACCESS_WIFI_STATE"/>  
@@ -76,13 +77,12 @@
   <permission id="android.permission.WRITE_EXTERNAL_STORAGE"/>  
   <permission id="android.permission.WRITE_SMS"/>  
   <permission id="com.android.alarm.permission.SET_ALARM"/>  
-  <import id="cordova-plugin-file-transfer" type="web" ref="cordova"/>  
-  <import id="cordova-plugin-device" type="web" ref="cordova"/>  
-  <import id="cordova-plugin-camera" type="web" ref="cordova"/>  
-  <import id="cordova-plugin-file" type="web" ref="cordova"/>  
-  <theme>orange</theme>
-  <statusBarStyle>dark</statusBarStyle>
-</application><!--
+  <theme>orange</theme>  
+  <statusBarStyle>dark</statusBarStyle>  
+  <import id="cordova-plugin-file-transfer" type="web" ref="cordova"></import>  
+  <import id="cordova-plugin-file" type="web" ref="cordova"/> 
+</application>
+<!--
 【屏幕显示方向】
   screenOrientation: 屏幕显示方向
     landscape: 横向

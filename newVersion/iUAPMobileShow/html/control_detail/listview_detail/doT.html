@@ -34,28 +34,28 @@
 		<script type="text/x-dot-template" id="list">
 			<div class="um-listview-wrap" id="listview">
 				<ul class="um-list um-no-active">
-					{{~it.list:value:index }}
-					<li class="um-listview-row">
+					{{for(var i=0;i<it.length;i++){ }}
+					<li class="um-listview-row" data-tar={{=i}}>
 						<a href="#" class="um-list-item um-swipe-action um-no-icon">
 							<div class="um-swipe-btns">
 								<span class="um-swipe-btn um-delete">删除</span>
 							</div>
 							<div class="um-list-item-media msg-info">
-								<img alt="" src="{{=value.img}}" width=50>
-								<span class="um-badge" >{{=value.msgNum}}</span>
+								<img alt="" src="{{=it[i].img}}" width=50>
+								<span class="um-badge" >{{=it[i].msgNum}}</span>
 							</div>
 							<div class="um-list-item-inner">
 								<div class="um-list-item-body">
-									<h4 class="um-media-heading fb f16 um-text-overflow"  >{{=value.sender}}</h4>
-									<p class="um-gray f14 um-text-overflow"  >{{=value.lastMsg}}</p>
+									<h4 class="um-media-heading fb f16 um-text-overflow"  >{{=it[i].sender}}</h4>
+									<p class="um-gray f14 um-text-overflow"  >{{=it[i].lastMsg}}</p>
 								</div>
 								<div class="pr10">
-									<span class="um-gray f12"  >{{=value.lastTime}}</span>
+									<span class="um-gray f12"  >{{=it[i].lastTime}}</span>
 								</div>
 							</div>
 						</a>
 					</li>
-					{{~}}
+					{{}}}
 				</ul>
 			</div>
 </script>
@@ -107,9 +107,13 @@
         				"lastTime" : "12:40"
         			});
                 }
-				var data={list:jsonArray};
+			 
 				var evalText = doT.template($("#list").text());
-				$("#main").html(evalText(data));
+				console.log(evalText);
+				$("#main").html(evalText(jsonArray));
+				$('#main').on('click','.um-listview-row',function(e){
+					alert($(e.currentTarget).attr('data-tar'));
+				});
         	});		
         </script>
 	</body>

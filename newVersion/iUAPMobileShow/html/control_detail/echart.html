@@ -32,7 +32,7 @@
 			</div>
 			<div id="main" class="um-content p15">
 				<h4>echart分类</h4>
-				<a href="echart_detail/bar.html">
+				<a href="#" onclick="openWin('bar')">
 					<div class="um-label um-box-justify">
 	                	<div>柱状图</div>
 	                	<div>
@@ -40,7 +40,7 @@
 	                	</div>
                 	</div>
 				</a>
-				<a href="echart_detail/line.html">
+				<a href="echart_detail/line.html" onclick="openWin('line')">
 					<div class="um-label um-box-justify">
 	                	<div>折线图</div>
 	                	<div>
@@ -48,7 +48,7 @@
 	                	</div>
                 	</div>
 				</a>
-				<a href="echart_detail/pan.html">
+				<a href="echart_detail/pan.html" onclick="openWin('pan')">
 					<div class="um-label um-box-justify">
 	                	<div>饼状图</div>
 	                	<div>
@@ -62,6 +62,13 @@
 			$('.um-back').click(function (){
 				summer.closeWin();
 			});
+			function openWin(type){
+				summer.openWin({
+					id:type,
+					url:"html/control_detail/echart_detail/"+type+".html"
+				});
+			}
+			
 		</script>
 	</body>
 </html>
