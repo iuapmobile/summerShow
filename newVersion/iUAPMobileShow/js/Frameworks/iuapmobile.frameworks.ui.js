@@ -429,7 +429,7 @@ $("textarea.form-control").elastic();
         },
         hideLoadingBar: function () {
             console.log(loadingModal);
-            loadingModal.destroy();
+            loadingModal.destory();
         }
     };
     $.extend(UM,api);

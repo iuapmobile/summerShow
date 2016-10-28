@@ -32,7 +32,7 @@
 			</div>
 			<div id="main" class="um-content p15">
 				<h4>画廊分类</h4>
-				<a href="photoslide_inside/slide1.html">
+				<a href="#" onclick="openWin('slide1')">
 					<div class="um-label um-box-justify">
 	                	<div>轮播1</div>
 	                	<div>
@@ -40,7 +40,7 @@
 	                	</div>
                 	</div>
 				</a>
-				<a href="photoslide_inside/slide2.html">
+				<a href="#" onclick="openWin('slide2')">
 					<div class="um-label um-box-justify">
 	                	<div>轮播2</div>
 	                	<div>
@@ -48,7 +48,7 @@
 	                	</div>
                 	</div>
 				</a>
-				<a href="photoslide_inside/photoslide1.html">
+				<a href="#" onclick="openWin('photoslide1')">
 					<div class="um-label um-box-justify">
 	                	<div>画廊1</div>
 	                	<div>
@@ -56,7 +56,7 @@
 	                	</div>
                 	</div>
 				</a>
-				<a href="photoslide_inside/photoslide2.html">
+				<a href="#" onclick="openWin('photoslide2')">
 					<div class="um-label um-box-justify">
 	                	<div>画廊2</div>
 	                	<div>
@@ -64,7 +64,7 @@
 	                	</div>
                 	</div>
 				</a>
-				<a href="photoslide_inside/photoslide3.html">
+				<a href="#" onclick="openWin('photoslide3')">
 					<div class="um-label um-box-justify">
 	                	<div>画廊3</div>
 	                	<div>
@@ -72,7 +72,7 @@
 	                	</div>
                 	</div>
 				</a>
-				<a href="photoslide_inside/photoslide4.html">
+				<a href="#" onclick="openWin('photoslide4')">
 					<div class="um-label um-box-justify">
 	                	<div>画廊4</div>
 	                	<div>
@@ -80,7 +80,7 @@
 	                	</div>
                 	</div>
 				</a>
-				<a href="photoslide_inside/photoslide5.html">
+				<a href="#" onclick="openWin('photoslide5')">
 					<div class="um-label um-box-justify">
 	                	<div>画廊5</div>
 	                	<div>
@@ -95,6 +95,13 @@
 			$('.um-back').click(function (){
 				summer.closeWin();
 			});
+			function openWin(type){
+				summer.openWin({
+					id:type,
+					url:"html/control_detail/photoslide_inside/"+type+".html"
+				});
+			}
+			
 		</script>
 	</body>
 </html>

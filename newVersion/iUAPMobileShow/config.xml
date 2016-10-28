@@ -79,11 +79,12 @@
   <permission id="com.android.alarm.permission.SET_ALARM"/>  
   <theme>orange</theme>  
   <statusBarStyle>dark</statusBarStyle>  
-  <import id="cordova-plugin-file-transfer" type="web" ref="cordova"></import>  
+  <import id="cordova-plugin-file-transfer" type="web" ref="cordova"></import>
   <import id="cordova-plugin-device" type="web" ref="cordova"/>  
   <import id="cordova-plugin-camera" type="web" ref="cordova"/>  
   <import id="cordova-plugin-file" type="web" ref="cordova"/>  
   <import id="cordova-plugin-whitelist" type="web" ref="cordova"/> 
+
 </application>
 <!--
 【屏幕显示方向】

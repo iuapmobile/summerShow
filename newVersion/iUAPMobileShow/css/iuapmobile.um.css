@@ -901,7 +901,6 @@ a {
 .um-circle {
   border-radius: 50%;
 }
- 
 
 .um-page .um-square {
   border-radius: 0;
@@ -4127,8 +4126,6 @@ input[type="number"].form-control {
   cursor: pointer;
   pointer-events: none;
   margin-bottom: -5px;
-  position: relative;
- 
 }
 
 .um-switch1 .um-handle {

@@ -84,7 +84,7 @@
 								<div  class='ml15'>									
 									视觉设计规范.zip
 									<div class="size">
-										597k
+										3.56M
 									</div>
 								</div>
 								<div onclick="download1(this)" class="download1">
@@ -105,7 +105,7 @@
 								<div  class='ml15'>
 									个人简历_张三.doc
 									<div class="size">
-										1.68M
+										368k
 									</div>
 								</div>
 								<div  onclick="download2(this)" class="download2">
@@ -126,7 +126,7 @@
 <script>
 	//返回按钮
 	$('.um-back').click(function(){
-		summer.closewin();
+		summer.closeWin();
 	});
 	//公用的download
 	var arr = [];
@@ -244,13 +244,14 @@
 	//打开文件
 	function openFile() {
 		//将filename.的格式解析
-		/*var filetype = filename.split(".").pop();
+		var filetype = filename.split(".").pop();
 		summer.UMFile.open({
 			"filename" : filename, //文件名
 			"filetype" : filetype, //文件格式
 			"filepath" : filepath	//文件路径
-		});*/
-		var size=summer.UMFile.getFileInfo(filepath);
+		});
+		}
+	/*	var size=summer.UMFile.getFileInfo(filepath);
 		alert("文件大小" + JSON.parse(size).size + "kb");
 		var flag = summer.UMFile.exists({
 			path : filepath,
@@ -267,5 +268,5 @@
 	}
 	function removeCallback(args){
 		$alert(args);
-	}
+	}*/
 </script>
