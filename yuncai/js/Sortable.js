@@ -603,7 +603,7 @@
 			var t = target.parentNode;
 			this.options.endX = evt.changedTouches ? Number(evt.changedTouches[0].pageX) : null;
 			this.options.endY = evt.changedTouches ? Number(evt.changedTouches[0].pageY) : null;
-			if (target.className == "um-black" && this.options.endTime - this.options.startTime < 800 && this.options.endTime - this.options.startTime > 150 && !t.classList.contains("um-dragli") && this.options.endY - this.options.startY < 30&& this.options.endX - this.options.startX < 30){
+			if (target.className == "um-black" && this.options.endTime - this.options.startTime < 800 && this.options.endTime - this.options.startTime > 120 && !t.classList.contains("um-dragli") && this.options.endY - this.options.startY < 30&& this.options.endX - this.options.startX < 30){
 				
 				window.location = url;
 			}

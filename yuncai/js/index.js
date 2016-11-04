@@ -19,26 +19,25 @@
 			{content: "./img/g3.jpg"}
 		]
     });
-    /*
-    var j = {"deviceid":"FBC0BE3F-E2AE-4B7C-B060-777A4C8E5B6E","os":"web","userid":"caoqi"};
+    
+    var j = {"deviceid":"D8YDU15A31007455868753026659495","os":"web","userid":"dzk"};
 	var s = $summer.jsonToStr(j);
 	var param = {data: s};
 	$.get("http://172.20.7.98:8080/mobem/app/getapplist",param,function(data){
 		
-		//alert(data);
-		var d = ($summer.strToJson(data)).data.apps;
-		
+		var d = ($summer.strToJson(data)).data.apps.remove(0);
 		for (var i =0;i<d.length;i++){
 			d[i].img = d[i].webiconurl;
 			d[i].label = d[i].title;
 			d[i].url = d[i].weburl;
 		}
 		workbench.createComponent("um-APPManager",{
-			el:"#mycomponents2",
+			el:"#uappmanager",
 			data:d,
 			colum:4
 		});
-	});*/
+	});
+	/*
 	workbench.createComponent("um-APPManager",{
 		el:"#uappmanager",
 		data:[{
@@ -78,6 +77,7 @@
 		}],
 		colum : 4
 	});
+	*/
 	workbench.createComponent("um-footer-custom", {
 		data: [{title:"首页", iconfont:"icon-home",target:'#home' },
 			{title:"消息", iconfont:"icon-msg",target:'#message' },
