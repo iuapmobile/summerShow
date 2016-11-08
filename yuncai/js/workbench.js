@@ -185,6 +185,55 @@ var workbench = {
 			});
 			// 注册
 			Vue.component('um-layout-text',AppText);
+		}else if(type=="um-items"){
+			var Appitems = Vue.extend({
+				template:'<div class="um-items">'
+						 +'<ul class="clearfix">'
+						 +'<li v-for="list in gridlist">'
+	                         +'<a href="{{list.url}}" class="um-circle um-grey">'
+	                         	+'<img v-bind:src="list.img" width=40 class="um-img-responsive" alt="">'
+	                         	+'<div class="f12 mt5">{{list.text}}</div>'
+	                         +'</a>'
+                         +'</li>'
+                         +'<li>'
+	                         +'<a href="{{more.url}}" class="um-circle um-grey">'
+	                         	+'<img v-bind:src="more.img" width=40 class="um-img-responsive" alt="">'
+	                         	+'<div class="f12 mt5">{{more.text}}</div>'
+	                         +'</a>'
+                         +'</li>'
+                         +'</ul>'
+                         +'</div>',
+                data: function(){
+                	return{
+			    		 gridlist:settings.data,
+			    		 more:settings.more
+			  		}
+                }       
+			});
+			// 注册
+			Vue.component('um-items',Appitems);
+		}else if(type=="um-classify"){
+			var Appclassify = Vue.extend({
+				template:'<div class="um-classify">'
+						 +'<div class="t"><span class="f14 um-grey">{{classifytit}}</span></div>'
+						 +'<ul>'
+						 +'<li v-for="list in classifylist">'
+	                         +'<a href="{{list.url}}" class="um-circle um-grey">'
+	                         	+'<img v-bind:src="list.img" width=40 class="um-img-responsive" alt="">'
+	                         	+'<div class="f14 mt5">{{list.text}}</div>'
+	                         +'</a>'
+                         +'</li>'
+                         +'</ul>'
+                         +'</div>',
+                data: function(){
+                	return{
+			    		 classifylist:settings.data,
+			    		 classifytit: settings.title
+			  		}
+                }       
+			});
+			// 注册
+			Vue.component('um-classify',Appclassify);
 		}else if(type=='um-message'){
 			var Appmessage = Vue.extend({
 				template: '<div class="um-listview-wrap" id="listview">'

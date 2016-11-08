@@ -101,7 +101,7 @@
 			ignore: 'a, img',
 			filter: null,
 			animation: 150,
-			delay : 1000,
+			delay : 600,
 			startTime : 0,
 			endTime : 0,
 			startX : 0,
@@ -603,7 +603,7 @@
 			var t = target.parentNode;
 			this.options.endX = evt.changedTouches ? Number(evt.changedTouches[0].pageX) : null;
 			this.options.endY = evt.changedTouches ? Number(evt.changedTouches[0].pageY) : null;
-			if (target.className == "um-black" && this.options.endTime - this.options.startTime < 800 && this.options.endTime - this.options.startTime > 120 && !t.classList.contains("um-dragli") && this.options.endY - this.options.startY < 30&& this.options.endX - this.options.startX < 30){
+			if (target.className == "um-black" && this.options.endTime - this.options.startTime < 500 && this.options.endTime - this.options.startTime > 80 && !t.classList.contains("um-dragli") && this.options.endY - this.options.startY < 20&& this.options.endX - this.options.startX < 20){
 				
 				window.location = url;
 			}
@@ -1053,6 +1053,7 @@ APPManager.prototype = {
 		this.runn();
 		this.close();
 		this.remove();
+		this.openApp();
 	},
 	runn : function(){
 		var el = document.getElementById("um-sortable");
@@ -1073,5 +1074,24 @@ APPManager.prototype = {
 	setCss : function(){
 		var w = $(this.id).width() / this.colum;
 		$(".um-small").css("width",w);
+	},
+	openApp : function(){
+		$(".um-more").on("click",function(){
+			UM.page.changePage({
+	            target: "#application",
+	            isReverse: 0,
+	            transition: "um"
+	        });
+		});
+		this.provinceLoaded();
+	},
+	provinceLoaded : function (){
+		var provinceScroller = new iScroll("provinceWrapper",{
+			hScroll:false,
+			vScroll:true,
+			vScrollbar:false,
+			bounce:true,
+			momentum:false
+		});
 	}
 }

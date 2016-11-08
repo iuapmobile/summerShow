@@ -1,9 +1,7 @@
 .um-page{
 	background:#F8F8F8;
 }
-.ncontent{
-	background:#ffffff;
-}
+/* manager组件style */
 #uappmanager{
 	margin-top:10px;
 	background:#ffffff;
@@ -29,6 +27,11 @@
 #um-sortable .um-dragli .um-delete{
 	display: block;
 }
+#provinceWrapper{position:relative; width:30%; height:100%;}
+#provinceWrapper .scroller{width:100%; background:#fff;}
+#provinceWrapper .scroller li{height:45px; line-height:45px; border-bottom:1px solid #e7e7e7; text-indent:1em; border-right:1px solid #e7e7e7;background: #f6f6f6;}
+#provinceWrapper .scroller li.active{border-right: none;background: #ffffff;}
+/* um-header-fixed组件 */
 .um-header-fixed{
 	width:100%;
 	position: fixed;
@@ -88,4 +91,43 @@
 }
 .um-input-group .btn:not(:first-child):not(:last-child), .um-input-group .btn-bg:not(:first-child):not(:last-child), .um-input-group .um-btn:not(:first-child):not(:last-child), .um-input-group .form-control:not(:first-child):not(:last-child){
 	border-radius:5px;
+}
+/* um-items */
+.um-grey{
+	color:#666666;
+}
+.um-items>ul>li{
+	width:25%;
+	float:left;
+	padding:10px;
+	background:#FFFFFF;
+}
+/* um-classify */
+.um-classify{
+	padding: 0 10px;
+}
+.um-classify .t{
+	padding: 10px 0;
+	line-height:1.2;
+	text-align:left;
+	position:relative;
+}
+.um-classify .t>span{
+	border-left:4px red solid;
+	padding-left:6px;
+}
+.um-classify>ul{
+	display: -webkit-box;
+    display: box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap:wrap;
+	flex-wrap:wrap;
+	justify-content: space-around;
+}
+.um-classify>ul>li{
+	width:23.5%;
+	padding:10px;
+	background:#FFFFFF;
+	margin-bottom:5px;
 }

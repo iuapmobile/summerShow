@@ -19,7 +19,7 @@
 			{content: "./img/g3.jpg"}
 		]
     });
-    
+    /*
     var j = {"deviceid":"D8YDU15A31007455868753026659495","os":"web","userid":"dzk"};
 	var s = $summer.jsonToStr(j);
 	var param = {data: s};
@@ -37,7 +37,7 @@
 			colum:4
 		});
 	});
-	/*
+	*/
 	workbench.createComponent("um-APPManager",{
 		el:"#uappmanager",
 		data:[{
@@ -77,7 +77,7 @@
 		}],
 		colum : 4
 	});
-	*/
+	
 	workbench.createComponent("um-footer-custom", {
 		data: [{title:"首页", iconfont:"icon-home",target:'#home' },
 			{title:"消息", iconfont:"icon-msg",target:'#message' },
@@ -94,6 +94,97 @@
 			 
 		]}
 	);
+	
+	workbench.createComponent("um-items",{
+		data:[
+			{
+				"img": "img/goods/7.png",
+				"text":"数码电器",
+				"url":""
+			},
+			{
+				"img": "img/goods/1.png",
+				"text":"办公用品",
+				"url":""
+			},
+			{
+				"img": "img/goods/3.png",
+				"text":"机器设备",
+				"url":""
+			},
+			{
+				"img": "img/goods/4.png",
+				"text":"五金工具",
+				"url":""
+			},
+			{
+				"img": "img/goods/2.png",
+				"text":"电工电气",
+				"url":""
+			},
+			{
+				"img": "img/goods/5.png",
+				"text":"精细化工",
+				"url":""
+			},
+			{
+				"img": "img/goods/6.png",
+				"text":"冶金矿产",
+				"url":""
+			}
+		],
+		more:
+			{
+				"img": "img/goods/8.png",
+				"text":"所有分类",
+				"url":""
+			}
+	});
+	workbench.createComponent("um-classify",{
+		data:[
+			{
+				"img": "img/goods/7.png",
+				"text":"数码电器",
+				"url":""
+			},
+			{
+				"img": "img/goods/1.png",
+				"text":"办公用品",
+				"url":""
+			},
+			{
+				"img": "img/goods/3.png",
+				"text":"机器设备",
+				"url":""
+			},
+			{
+				"img": "img/goods/4.png",
+				"text":"五金工具",
+				"url":""
+			},
+			{
+				"img": "img/goods/2.png",
+				"text":"电工电气",
+				"url":""
+			},
+			{
+				"img": "img/goods/5.png",
+				"text":"精细化工",
+				"url":""
+			},
+			{
+				"img": "img/goods/6.png",
+				"text":"冶金矿产",
+				"url":""
+			},
+			{
+				"img": "img/goods/8.png",
+				"text":"所有分类",
+				"url":""
+			}
+		],
+		title:"推荐商品"			
+	});
 	workbench.createComponent("um-message", {
 		data: [{
         			"sender" : "询报价",
@@ -180,46 +271,45 @@
 		]}
 	);
 new Vue({
-	  	el: '#body0',
-	  	data: {
-	    	info: 'Hello iuap mobile!',
-	  	  	todos:[{text:"aa"},{text:"bb"},{text:"cc"},{text:"dd"}]
-	  	},
-	  	methods: {
-   	 		add: function () {
-      			this.info +=' new';
-      			this.todos.push({text: (new Date()).toLocaleString()}); 
-    		},
-    		remove: function () {
-      			this.info = this.info.substring(0,this.info.length-4) ;
-      			this.todos.pop(); 
-    		},
-    		removeTodo: function (index) {
-      			this.todos.splice(index, 1)
-    		}
-  		},
-  		created: function () {
-		    // `this` 指向 vm 实例
-		   // console.log('created is: ' + this.info)
+  	el: '#body0',
+  	data: {
+    	info: 'Hello iuap mobile!',
+  	  	todos:[{text:"aa"},{text:"bb"},{text:"cc"},{text:"dd"}]
+  	},
+  	methods: {
+ 		add: function () {
+  			this.info +=' new';
+  			this.todos.push({text: (new Date()).toLocaleString()}); 
 		},
-		beforeCompile: function () {
-		    // `this` 指向 vm 实例
-		   // console.log('beforeCompile is: ' + this.info)
+		remove: function () {
+  			this.info = this.info.substring(0,this.info.length-4) ;
+  			this.todos.pop(); 
 		},
-		compiled: function () {
-		    // `this` 指向 vm 实例
-		    //console.log('compiled is: ' + this.info)
-		},ready: function () {
-		    // `this` 指向 vm 实例
-		   // console.log('ready is: ' + this.info)
-		},beforeDestroy: function () {
-		    // `this` 指向 vm 实例
-		   // console.log('beforeDestroy is: ' + this.info)
-		},destroy: function () {
-		    // `this` 指向 vm 实例
-		   // console.log('destroy is: ' + this.info)
+		removeTodo: function (index) {
+  			this.todos.splice(index, 1)
 		}
-	})
+	},
+	created: function () {
+	    // `this` 指向 vm 实例
+	   // console.log('created is: ' + this.info)
+	},
+	beforeCompile: function () {
+	    // `this` 指向 vm 实例
+	   // console.log('beforeCompile is: ' + this.info)
+	},
+	compiled: function () {
+	    // `this` 指向 vm 实例
+	    //console.log('compiled is: ' + this.info)
+	},ready: function () {
+	    // `this` 指向 vm 实例
+	   // console.log('ready is: ' + this.info)
+	},beforeDestroy: function () {
+	    // `this` 指向 vm 实例
+	   // console.log('beforeDestroy is: ' + this.info)
+	},destroy: function () {
+	    // `this` 指向 vm 实例
+	   // console.log('destroy is: ' + this.info)
+	}
+})
  
-
  

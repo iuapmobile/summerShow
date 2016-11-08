@@ -9,33 +9,37 @@
 		<link rel="stylesheet" type="text/css" href="css/islider.css">
 		<link rel="stylesheet" href="css/main.css" />
 		<link rel="stylesheet" href="css/index.css" />
+		
 		<script src="js/summer.js" ></script>
 		<script src="js/jquery.min.js" ></script>
 		<script src="js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
 		<script src="js/islider.js" ></script>
 	 	<script src="js/Sortable.js" ></script>
+	 	<script src="js/iscrollold.js" ></script>
 	</head>
 	<body id='body0'>
 		<div class="um-page" id="index">		 
 			<div id="main" class="um-content">				 
-				<div  id="article">
-					  <div id="home"  class="active">
+				<div id="article">
+					  <div id="home" class="active">
 					      <um-header></um-header>
 					      <div class="um-row">
 					      	  <div id="iSlider-wrapper" class="iSlider-wrapper"></div>
 					      </div>
 					      <um-layout-text></um-layout-text>
 					      <div id="uappmanager"></div>
+					   
 					  </div>
 					  <div id="message" >  
-					    <um-header-text></um-header-text>             
-                        <div class="um-input-search">
-                        		<input type="search" class="form-control" placeholder="搜索消息">
-                        </div>
-						 <um-message></um-message>
+					      <um-header-text></um-header-text>             
+                          <div class="um-input-search">
+                              <input type="search" class="form-control" placeholder="搜索消息">
+                          </div>
+						  <um-message></um-message>
 					  </div>
 					  <div id="goods">
-						第三个商品页面<!--这里写第三个页面的内容-->
+					      <um-items></um-items>
+					      <um-classify></um-classify>
 					  </div>
 					  <div id="mine">
 						第四个个人信息页面<!--这里写第四个页面的内容-->
@@ -44,8 +48,45 @@
 			</div>		
 			 <um-footer-custom></um-footer-custom> 
 		</div>
+		<div class="um-page" id="application">
+		  <div class="um-header">
+		      <a onclick="back()" class="um-back">返回</a>
+              <h3>添加应用</h3>
+		  </div>
+		  <div id="" class="um-content">
+              <div id="provinceWrapper">
+                  <ul class="scroller">
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                      <li>全部分类</li>
+                  </ul>
+              </div>
+          </div>
+		</div>
 	</body>
 	<script type="text/javascript" src="js/vue.js"></script>
 	<script src="js/workbench.js" ></script>
 	<script src="js/index.js" ></script>
+	<script>
+	   function back(){
+	       UM.page.back();
+	   }
+	</script>
 </html>
