@@ -1090,7 +1090,7 @@ APPManager.prototype = {
 			hScroll:false,
 			vScroll:true,
 			vScrollbar:false,
-			bounce:true,
+			bounce:false,
 			momentum:false
 		});
 	}

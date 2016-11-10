@@ -50,6 +50,16 @@ var workbench = {
     			animateTime: 800
     		});
     		islider.addDot();
+    		var islider2 = new iSlider({
+    			type: 'pic',
+    			data: settings.data,
+    			dom: document.getElementById("iSlider-wrapper2"),
+    			isLooping: true,
+    			animateType: 'default',
+    			isAutoplay: true,
+    			animateTime: 800
+    		});
+    		islider2.addDot();
 		}else if(type == 'um-APPManager'){
 			var v = new APPManager(settings.el,settings);
 		}else if(type == "um-footer"){
