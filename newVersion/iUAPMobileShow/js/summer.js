@@ -296,15 +296,6 @@
 			return "";
 		}
     })(u);
-
-
-    // u.isArray = function(obj){
-    //     if(Array.isArray){
-    //         return Array.isArray(obj);
-    //     }else{
-    //         return obj instanceof Array;
-    //     }
-    // };
     u.isArray = function (obj) {
       return Object.prototype.toString.call(obj) === '[object Array]';
     }
@@ -346,19 +337,13 @@
 	
 	u.isJSONObject = function (obj) {
 		return Object.prototype.toString.call(obj) === '[object Object]';;
-	}
-	window.$isJSONObject = u.isJSONObject;
-	
+	}	
 	u.isJSONArray = function (obj) {   
 	  return Object.prototype.toString.call(obj) === '[object Array]';    
 	}
-	window.$isJSONArray = u.isJSONArray;
-	
 	u.isFunction = function (obj) {   
 	  return Object.prototype.toString.call(obj) === '[object Function]';    
 	}
-	window.$isFunction = u.isFunction;
-	
 	//是否为空字符串
 	u.isEmpty = function(obj){
 		if(obj == undefined || obj == null || (obj.toString && obj.toString() == "")){
@@ -366,9 +351,60 @@
 		}
 		return false;
 	}
-	window.$isEmpty = u.isEmpty;
+    u.check = function(obj,paramNameArray,msg){
+        for(var i=0,len=paramNameArray.length;i<len;i++){
+            if(obj[paramNameArray[i]] == undefined || obj[paramNameArray[i]] == null){
+                var str = "参数["+paramNameArray[i]+"]不能为空";
+                alert(msg ? msg + str : str);
+                return false;
+            }       
+        }
+        return true;
+    }
+    u.checkIfExist = function(obj,paramNameArray,msg){
+        for(var i=0,len=paramNameArray.length;i<len;i++){
+            var key = paramNameArray[i];
+            if(key in obj && $summer.isEmpty(obj[key])){
+                var str = "参数["+paramNameArray[i]+"]不能为空";
+                alert(msg ? msg + str : str);
+                return false;
+            }           
+        }
+        return true;
+    }
+    u.isNamespace = function(ns){
+        if(typeof ns == "undefined" || ns === null){
+            return false;
+        }
+        if(typeof ns == "string" && ns == ""){
+            return false;
+        }
+        
+        if (ns.indexOf(".") < 0 || ns.substring(0,1)=="." || ns.substring(ns.length-1)==".") {
+            alert("包名非法，不包含.或以.开始结束");
+            return false;
+        }
 
-
+        var nameArr = ns.split(".");
+        for (var i=0, len=nameArr.length; i<len; i++) {
+            var name = nameArr[i];
+            if (name == "") {
+                alert("非法的包名中连续含有两个.");
+                return false;
+            }else{
+                var pattern = /^[a-z]+([a-zA-Z_][a-zA-Z_0-9]*)*$/;
+                if(!pattern.test(name)){
+                    alert("非法的包名");
+                    return false
+                }
+            }
+        }
+        return true;
+    }
+    window.$isJSONObject = u.isJSONObject;
+    window.$isJSONArray = u.isJSONArray;
+    window.$isFunction = u.isFunction;
+    window.$isEmpty = u.isEmpty;
     window.$summer = window.$summer || u;
 })();
 
@@ -796,21 +832,20 @@
         //         el.style.paddingTop = '20px';
         //     }
         // }
-		if($summer.os == "ios" || $summer.os == "pc"){
-			$(el).children().css("top","20px");
-			var strSV = summer.systemVersion;
-            var numSV = parseInt(strSV,10);
-            var fullScreen = summer.fullScreen;
-            var statusBarAppearance = summer.statusBarAppearance;
-			
-			//if (numSV >= 7 && !fullScreen && statusBarAppearance) {
-			if (true) {
-				el.style.paddingTop = '20px';
-				$(el).children().css("top","20px");
-			}
-        }else{
-			
-		}
+        
+		var sysInfo=summer.getSysInfo();
+        var strST=sysInfo.systemType;
+        var strSV = sysInfo.systemVersion;
+        var fullScreen = sysInfo.fullScreen;
+        var statusBarAppearance = sysInfo.statusBarAppearance;
+        var statusBarHeight = sysInfo.statusBarHeight;
+        if((strST == "ios" && fullScreen && statusBarAppearance=='1') || strST == "pc"){        
+                el.style.paddingTop = '20px';
+                $(el).children().css("top","20px");
+        }else if(strST == "android" && fullScreen && statusBarAppearance){
+                el.style.paddingTop = statusBarHeight+'px';
+                $(el).children().css("top",statusBarHeight+'px');
+        }
     };
     u.toast = function(title, text, time){
         // var opts = {};
@@ -1029,12 +1064,15 @@
     			json["position"].height = json["rect"].h;
 
     		}
+    		
+    		/*
     		if(json["position"].width=="auto"){
     		    json["position"].width = $summer.offset(document.getElementsByTagName("body")[0]).w;
     		}
     		if(json["position"].height=="auto"){
     		    json["position"].height = $summer.offset(document.getElementsByTagName("body")[0]).h;
     		}
+    		*/
 
     		if(json["name"] && !json["id"]){
     			json["id"] = json["name"];
@@ -1083,6 +1121,15 @@
 			}				
 			return this.callCordova('summer-plugin-frame.XFrame', 'closeWin', json, successFn, errFn);
 		},
+		closeToWin : function(json, successFn, errFn){
+			//support closeWin('xxx') and closeWin({id:'xxx'})
+			if(typeof json == "string"){
+				json = {"id" : json};
+			}else if(typeof json == "undefined"){
+				json = {};
+			}				
+			return this.callCordova('summer-plugin-frame.XFrame', 'closeToWin', json, successFn, errFn);
+		},
 		getSysInfo : function(json, successFn, errFn){
 			//support closeWin('xxx') and closeWin({id:'xxx'})
 			if(typeof json == "string"){
@@ -1096,18 +1143,17 @@
 				pageParam : {param0:123,param1:"abc"},
 				screenWidth:"",
 				screenHeight:"",
-				
 				winId:"",
 				winWidth:"",
-				winHeight:"",
-				
+				winHeight:"",				
 				frameId:"",
 				frameWidth:"",
 				frameHeight:"",
-				
+				statusBarHeight:"",
+				statusBarStyle:"",
 				appParam:"",
 			};
-			return s.callSync('SummerDevice.getSysInfo', param);
+			return JSON.parse(s.callSync('SummerDevice.getSysInfo', param));
 			
 		},
         setFrameAttr : function(json, successFn, errFn){
@@ -1146,7 +1192,7 @@
     s.closeFrame = s.window.closeFrame;
     s.openWin = s.window.openWin;
     s.closeWin = s.window.closeWin;
-	
+	s.closeToWin = s.window.closeToWin;
 	s.getSysInfo = s.window.getSysInfo;
 
     s.winParam = s.window.winParam;
@@ -1187,7 +1233,7 @@
 
 	    options.params = params;
 	    options.httpMethod = "POST"; 
-	    options.headers = headers || "";
+	    options.headers = headers || {};
 
 	    var ft = new FileTransfer();
 	    var SERVER = json.SERVER;
@@ -1239,13 +1285,13 @@
 						key: key,
 						value: value
 					};
-					return this.callSync("SummerStorage.writeApplicationContext", JSON.stringify(json));
+					return s.callSync("SummerStorage.writeApplicationContext", JSON.stringify(json));
 				},
 				getItem : function(key){
 					var json = {
 						key: key
 					};
-					return this.callSync("SummerStorage.readApplicationContext", JSON.stringify(json));
+					return s.callSync("SummerStorage.readApplicationContext", JSON.stringify(json));
 				}				
 			};
 		}else if(type == "configure"){
@@ -1255,13 +1301,13 @@
 						key: key,
 						value: typeof value == "string" ? value : JSON.stringify(value)
 					};
-					return this.callSync("SummerStorage.writeConfigure", JSON.stringify(json));
+					return s.callSync("SummerStorage.writeConfigure", JSON.stringify(json));
 				},
 				getItem : function(key){
 					var json = {
 						key: key
 					};
-					return this.callSync("SummerStorage.readConfigure", JSON.stringify(json));
+					return s.callSync("SummerStorage.readConfigure", JSON.stringify(json));
 				}				
 			};
 		}else if(type == "window"){
@@ -1271,13 +1317,13 @@
 						key: key,
 						value: typeof value == "string" ? value : JSON.stringify(value)
 					};
-					return this.callSync("SummerStorage.writeWindowContext", JSON.stringify(json));
+					return s.callSync("SummerStorage.writeWindowContext", JSON.stringify(json));
 				},
 				getItem : function(key){
 					var json = {
 						key: key
 					};
-					return this.callSync("SummerStorage.readWindowContext", JSON.stringify(json));
+					return s.callSync("SummerStorage.readWindowContext", JSON.stringify(json));
 				}				
 			};
 		}
@@ -1310,24 +1356,24 @@
     };
 	
 	s.setAppStorage = function(key, value){
-        return this.setStorage(key, value, "application");
+        return s.setStorage(key, value, "application");
     };
 	s.getAppStorage = function(key){
-        return this.getStorage(key, "application");
+        return s.getStorage(key, "application");
     };
 	
 	s.writeConfig = function(key, value){
-        return this.setStorage(key, value, "configure");
+        return s.setStorage(key, value, "configure");
     };
 	s.readConfig = function(key){
-        return this.getStorage(key, "configure");
+        return s.getStorage(key, "configure");
     };
 	
 	s.setWindowStorage = function(key, value){
-        return this.setStorage(key, value, "window");
+        return s.setStorage(key, value, "window");
     };
 	s.getWindowStorage = function(key){
-        return this.getStorage(key, "window");
+        return s.getStorage(key, "window");
     };
 	
     s.rmStorage = function(key){
@@ -1362,7 +1408,7 @@
 	s.getVersion = function(json){
 		var ver = s.callSync('XUpgrade.getVersion', json || {});
 		if(typeof ver == "string"){
-			return JSON.parse(versionInfo);
+			return JSON.parse(ver);
 		}else{
 			alert("getVersion' return value is not string!")
 			return ver;
@@ -1373,189 +1419,9 @@
 	};
 	//退出
 	s.exitApp = function(json, successFn, errFn){
-		return s.callCordova('summer-plugin-core.XUpgrade', 'exitApp', json, successFn, errFn);
+		return s.callCordova('summer-plugin-core.XUpgrade', 'exitApp', json || {}, successFn, errFn);
 	};
 	
-	//网络请求服务
-	s.ajax = function(json, successFn, errFn){
-		if(json.type == "get"){
-			return cordovaHTTP.get(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
-		}else if(json.type == "post"){
-			return cordovaHTTP.post(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
-		}
-	};
-	s.get = function(url, param, header, successFn, errFn){
-		return cordovaHTTP.get(url || "", param || {}, header || {}, successFn, errFn);
-	};
-	s.post = function(url, param, header, successFn, errFn){
-		return cordovaHTTP.post(url || "", param || {}, header || {}, successFn, errFn);
-	};
-
-	s.call = function(string, successFn, errFn){
-		return window.PhoneCaller.call(string, successFn, errFn);
-	};
-	
-	s.getLocation=function(successFn, errFn){
-		return navigator.geolocation.getCurrentPosition(successFn, errFn);
-	};
-	
-	s.contacts ={
-		find:function(json, successFn, errFn){	
-			var options      = new ContactFindOptions();
-			options.filter   = json.filter;
-			options.multiple = json.multiple;
-			options.desiredFields =[navigator.contacts.fieldType.id];
-			options.hasPhoneNumber = json.hasPhoneNumber;
-			var fields  =json.fieldType || [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
-			return navigator.contacts.find(fields, successFn, errFn, options);
-		},
-		
-		save:function(json, successFn, errFn){
-			var contact = navigator.contacts.create();
-			contact.displayName = json.displayName;
-			contact.nickname = json.nickName;   
-			return contact.save(successFn,errFn);
-		}
-	};
-
-/*  代码转移到summer.service.js中
-	s.writeFile=function(key,value){
-		alert(123)
-		return $cache.write(key,value)
-	};
-	
-	s.readFile=function(key){
-		alert(321)
-		return $cache.read(key)
-	};
-*/
-	s.call=function(string){
-		return $tel.call(string)
-	};
-	
-	s.sms=function(string,content){
-		return $tel.sendMsg({
-		   "tel" : string,
-		   "body" : content
-		})
-	};
-	
-	s.mail =function(string,title,content){
-		return $tel.sendMail({
-		   "receive" :string,
-		   "title" : title,
-		   "content" : content
-		})
-	};
-
-	s.netState =function(){
-		return $net.available();
-	};
-	
-	s.netInfo =function(){
-		return $net. getNetworkInfo();
-	};
-
-	s.getTimeZoneID=function(){
-		return $device.getTimeZoneID()
-	};
-	
-	s.getTimeZoneDisplayName=function(){
-		return $device.getTimeZoneDisplayName()
-	};
-	
-	s.Location=function(callback){
-		return $device.getLocation({
-	     "bindfield" : "location", 
-	     "callback" :  callback,         
-	     "single" : "true",
-	     "isgetaddress" : "true", 
-	     "network" : "true" 
-		}) 
-	};
-    
-    s.openView=function(url){
-    	return $device.openWebView({
-		    "url" : url
-		});
-    };
-    
-    s.getInternalMemoryInfo=function(){
-    	return $device.getInternalMemoryInfo()
-    }
-    
-    s.getExternalStorageInfo=function(){
-    	return $device.getExternalStorageInfo()
-    }
-    
-    s.getMemoryInfo=function(){
-    	return $device.getMemoryInfo()
-    }
-    
-    s.getDeviceInfo=function(){
-    	return $device.getDeviceInfo()
-    };
-
-  	s.httpGet=function(url,callback,json,time){
-  		return $service.get({
-		   "url" : url,
-		   "callback" :callback, 
-		   "header":json || {},
-		   "timeout" : time || ""
-		})
-  	};
-
-  	s.httpPost=function(url,callback,data,json,time){
-  		return $service.post({
-		   "url" : url,
-		   "callback" :callback,
-		   "data" : data || {}, 
-		   "header":json || {},
-		   "timeout" : time || ""
-		})
-  	}
-  	
-    
-	//加速计
-
-	s.getAcceleration = function (onSuccess,onError){
-		return navigator.accelerometer.getCurrentAcceleration(onSuccess,onError);
-	};
-	s.watchAcceleration = function (options,onSuccess,onError){
-		var watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);  
-		return watchID;  
-	};
-	//手机信息
-	s.model = function (){
-		return device.model;
-	};
-	s.uuid  = function (){
-		return device.uuid;
-	};
-	s.version = function (){
-		return device.version;
-	};
-	s.platform = function(){
-		return device.platform;
-	};
-	s.manufacturer = function (){
-		return device.manufacturer;
-	};
-	s.serial = function (){
-		return device.serial;
-	};
-	//电池状态
-	s.batterystatus = function (fn){
-		return window.addEventListener("batterystatus", fn, false);
-	};
-	//camera
-	s.camera = function (json,ret,err){
-		return navigator.camera.getPicture(ret,err,json);
-	};
-	//Inappbrowser
-	s.inappbrowser = function(url, target, options){
-		return cordova.InAppBrowser.open(url, target, options);
-	};
 }(window,summer);
 
 //summer native service v3.0.2016092011
@@ -1565,215 +1431,25 @@
 		s = {};
 		w.summer = s;
 	}
-	//----------------------------------------------------------------------------------- Validator
-	var $validator = {
-		check : function(obj,paramNameArray,msg){
-			for(var i=0,len=paramNameArray.length;i<len;i++){
-				if(obj[paramNameArray[i]] == undefined || obj[paramNameArray[i]] == null){
-					var str = "参数["+paramNameArray[i]+"]不能为空";
-					alert(msg ? msg + str : str);
-					return false;
-				}		
-			}
-			return true;
-		},
-		checkIfExist : function(obj,paramNameArray,msg){
-			for(var i=0,len=paramNameArray.length;i<len;i++){
-				var key = paramNameArray[i];
-				if(key in obj && $summer.isEmpty(obj[key])){
-					var str = "参数["+paramNameArray[i]+"]不能为空";
-					alert(msg ? msg + str : str);
-					return false;
-				}			
-			}
-			return true;
-		},
-		isNamespace : function(ns){
-			/*
-			if (ns.isNullOrEmpty()) {
-				var msg = "输入默认包名";
-				alert(msg);
-				return false;
-			}
-			*/
-			if(typeof ns == "undefined" || ns === null){
-				return false;
-			}
-			if(typeof ns == "string" && ns == ""){
-				return false;
-			}
-			
-			if (ns.indexOf(".") < 0 || ns.substring(0,1)=="." || ns.substring(ns.length-1)==".") {
-				alert("包名非法，不包含.或以.开始结束");
-				return false;
-			}
-
-			var nameArr = ns.split(".");
-			for (var i=0, len=nameArr.length; i<len; i++) {
-				var name = nameArr[i];
-				if (name == "") {
-					alert("非法的包名中连续含有两个.");
-					return false;
-				}else{
-					var pattern = /^[a-z]+([a-zA-Z_][a-zA-Z_0-9]*)*$/;
-					if(!pattern.test(name)){
-						alert("非法的包名");
-						return false
-					}
-				}
-			}
-			return true;
-		}
-	}
-	var UM = {
-		stringToJSON : function (str){
-		    if(str == null || (typeof str == "string" && str == ""))
-				return null;
-				
-			if(typeof str == "string"){
-				try{
-					if(str.indexOf("\n") >= 0){				
-						str = str.replace(/\n/g,"\\n");
-					}
-					if(str.indexOf("\r") >= 0){				
-						str = str.replace(/\r/g,"\\r");
-					}
-					if(!isNaN(str)){
-						return str;
-					}
-					if(/^[\d.]+$/.test(str)){
-						return str;
-					}
-					var result = eval('(' + str + ')');
-					if(Object.prototype.toString.call(result) === '[object Object]'){
-						return result;
-					}
-					if(Object.prototype.toString.call(result) === '[object Array]'){
-						return result;
-					}
-					return str;
-				}catch(e){
-					//alert("stringToJSON Exception! not a valid json string ");
-					return str;
-				}
-			}else if(typeof str == "object"){
-				return str;
-			}else{
-				alert("$stringToJSON()出错! 试图将一个["+ typeof str +"]类型的参数执行stringToJSON!");
-				return str;//不会走到这里
-			}
-		},
-		jsonToString : function (obj){
-		    
-		    switch(typeof(obj)){
-		        case 'string':            
-					try{
-						return eval('"'+ obj.replace(/(["\\])/g, '\\$1') +'"');            
-		            }catch(e){
-						return obj;
-		            }
-				case 'array':
-					return '[' + obj.map(UM.jsonToString).join(',') + ']';
-				case 'object':
-					if(obj instanceof Array){
-						var strArr = [];
-						var len = obj.length;
-						/*
-						for(var i=0; i<len; i++){
-							strArr.push(THIS.jsonToString(obj[i]));
-						}				
-						return '[' + strArr.join(',') + ']';
-						*/
-						
-						for(var i=0; i<len; i++){					
-							var item = null;
-							if(typeof obj[i] == "string"){
-								item = "\"" + obj[i] + "\"";
-							}else if(typeof obj[i] == "object"){
-								item = UM.jsonToString(obj[i]);
-							}else{						
-								item = UM.jsonToString(obj[i]);
-							}
-							
-							strArr.push(item);
-						}				
-						return '[' + strArr.join(',') + ']';
-					}else if(obj==null){
-						//return 'null';
-						return "";//兼容老版本		
-						//return "\"\"";
-				
-					}else{
-						var list = [];
-						for (var property in obj){
-							var vv = UM.jsonToString(obj[property]);
-							var p = UM.jsonToString(property);
-							if(p.indexOf("\"")>=0){
-
-							}else{
-								p="\""+p+"\"";
-							}
-							if(obj[property] instanceof Array){
-								
-							}else if(vv.toString().indexOf("\"")>=0){//哪一种情况??
-								
-								if(typeof obj[property] == "string"){
-									if(obj[property].indexOf("{")>-1 && obj[property].indexOf("}")>obj[property].indexOf("{")){//
-										if(JSON.tryParseJSON(obj[property])){
-											//vv = vv.replace(/\"/g,"\\\""); 
-											vv = vv.replace(/(["\\])/g, '\\$1');									
-											vv="\"" +vv+"\"" ;
-										}else{
-											vv = vv.replace(/(["\\])/g, '\\$1');
-											vv="\"" +vv+"\"" ;
-										}
-									}else{
-										//vv = vv.replace(/\"/g,"\\\"");  
-										vv = vv.replace(/(["\\])/g, '\\$1');								
-										vv="\"" +vv+"\"" ;
-									}
-								}
-								
-							}
-							else{
-								vv="\"" +vv+"\"" ;
-								//list.push("\""+THIS.jsonToString(property)+"\"" + ':'+"\"" + THIS.jsonToString(obj[property])+"\"");
-							}
-							list.push(p + ':'+vv);
-							}
-						return '{' + list.join(',') + '}';  
-					}  
-				case 'number':  
-					return obj;
-				case 'boolean':  
-					return "\"" + obj.toString() + "\"";
-				case 'undefined': 
-					return "";//兼容老版本		
-					//return "\"\"";
-				default:  
-					return obj;  
-			}  
-		}
-	}
-	$jsonToString = UM.jsonToString;
-	$stringToJSON = UM.stringToJSON;
-	s.service = {
+	//----------------------------------------------------------------------
+	s.UMService = {
 		call:function(serviceType, jsonArgs, isSync){
-			try{		
+			try{
+				jsonArgs = jsonArgs || {};
 				var serviceparams = "";
 				if(typeof jsonArgs == "string"){
-					var json = $stringToJSON(jsonArgs);
+					var json = $summer.strToJson(jsonArgs);
 					if(typeof json == "string"){
 						//转json后仍然为string，则报错，规定：调用服务的参数如果是字符串，必须是能转为json的字符串才行
 						alert("调用服务[" + serviceType + "]时参数不是一个有效的json字符串。参数是" + jsonArgs);
-						return;	
+						return;
 					}
-					serviceparams = $jsonToString(json);
+					serviceparams = $summer.jsonToStr(json);
 					if(typeof serviceparams == "object"){
 						//转json后仍然为string，则报错，规定：调用服务的参数如果是字符串，必须是能转为json的字符串才行
 						alert("调用服务[" + serviceType + "]时传递的参数不能标准化为json字符串，请检查参数格式。参数是" + jsonArgs);
-						return;	
-					}			
+						return;
+					}
 				}else if(typeof jsonArgs == "object"){
 					if(jsonArgs["callback"] && $summer.isFunction(jsonArgs["callback"]) && !jsonArgs["__keepCallback"]){
 						//1、 callback:function(){}
@@ -1782,7 +1458,7 @@
 							newCallBackScript =  "fun" + $summer.UUID(8, 16) + "()";//anonymous method
 						}
 						$__cbm[newCallBackScript] = jsonArgs["callback"];//callback can be global or local, so define a reference function in $__cbm
-						
+
 						//
 						window[newCallBackScript.substring(0,newCallBackScript.indexOf("("))] = function (sender, args){
 							try{
@@ -1793,7 +1469,7 @@
 								if(args == undefined)
 									args = sender;
 								var _func = $__cbm[newCallBackScript];
-								_func(sender, args);	
+								_func(sender, args);
 							}catch(e){
 								alert(e);
 							}finally{
@@ -1802,9 +1478,9 @@
 								//alert("del ok");
 								//alert(typeof $__cbm[newCallBackScript]);
 								//alert(typeof window[newCallBackScript.substring(0,newCallBackScript.indexOf("("))]);
-							}				
+							}
 						}
-						jsonArgs["callback"] = newCallBackScript;				
+						jsonArgs["callback"] = newCallBackScript;
 					}else if(jsonArgs["callback"] && typeof(jsonArgs["callback"]) == "string" && !jsonArgs["__keepCallback"]){
 						//2、 callback:"mycallback()"
 						var cbName = jsonArgs["callback"].substring(0, jsonArgs["callback"].indexOf("("));
@@ -1813,7 +1489,7 @@
 							alert(cbName + " is not a global function, callback function must be a global function!");
 							return;
 						}
-						
+
 						var newCallBackScript = "fun" + $summer.UUID(8, 16) + "()";//anonymous method
 						while(window[newCallBackScript]){
 							newCallBackScript =  "fun" + $summer.UUID(8, 16) + "()";//anonymous method
@@ -1827,31 +1503,31 @@
 								//$alert(args);
 								if(args == undefined)
 									args = sender;
-								callbackFn(sender, args);	
+								callbackFn(sender, args);
 							}catch(e){
 								alert(e);
 							}finally{
 								delete window[newCallBackScript.substring(0,newCallBackScript.indexOf("("))];
 								//alert("del ok");
 								//alert(typeof window[newCallBackScript.substring(0,newCallBackScript.indexOf("("))]);
-							}				
+							}
 						}
 						jsonArgs["callback"] = newCallBackScript;
 					}
-					
-					this.callBackProxy(jsonArgs , "error");
-				
-					serviceparams = $jsonToString(jsonArgs);
+
+					s.UMService.callBackProxy(jsonArgs , "error");
+
+					serviceparams = $summer.jsonToStr(jsonArgs);
 					if(typeof serviceparams == "object"){
 						//转string后仍然为json，则报错，规定：调用服务的参数如果是字符串，必须是能转为json的字符串才行
 						alert("调用服务[" + serviceType + "]时传递的参数不能标准化为json字符串，请检查参数格式" + jsonArgs);
-						return;	
+						return;
 					}
 				}else{
 					alert("调用$service.call("+serviceType+", jsonArgs, "+isSync+")时不合法,参数jsonArgs类型为"+typeof jsonArgs);
 					return;
 				}
-					
+
 				if(isSync){
 					return adrinvoker.call2(serviceType,serviceparams);//call2是同步调用
 				}else{
@@ -1860,7 +1536,7 @@
 				}
 			}catch(e){
 				var info="";
-				if(isSync)	
+				if(isSync)
 					info = "调用$service.call(\""+serviceType+"\", jsonArgs, "+isSync+")时发生异常,请检查!";
 				else
 					info = "调用$service.call(\""+serviceType+"\", jsonArgs)时发生异常,请检查!";
@@ -1876,7 +1552,7 @@
 					newCallBackFnName =  callback_KEY + $summer.UUID(8, 16);//anonymous method
 				}
 				$__cbm[newCallBackFnName] = jsonArgs[callback_KEY];//callback can be global or local, so define a reference function in $__cbm
-				
+
 				//
 				window[newCallBackFnName] = function (sender, args){
 					try{
@@ -1887,18 +1563,18 @@
 						if(args == undefined)
 							args = sender;
 						var _func = jsonArgs[callback_KEY];
-						_func(sender, args);	
+						_func(sender, args);
 					}catch(e){
 						alert(e);
 					}finally{
 						delete $__cbm[newCallBackFnName];
 						delete window[newCallBackFnName];
-						//alert("del ok"); 
+						//alert("del ok");
 						//alert(typeof $__cbm[newCallBackScript]);
 						//alert(typeof window[newCallBackScript.substring(0,newCallBackScript.indexOf("("))]);
-					}				
+					}
 				}
-				jsonArgs[callback_KEY] = newCallBackFnName + "()";				
+				jsonArgs[callback_KEY] = newCallBackFnName + "()";
 			}else if(jsonArgs[callback_KEY] && typeof(jsonArgs[callback_KEY]) == "string"){
 				// callback:"mycallback()"
 				var cbName = jsonArgs[callback_KEY].substring(0, jsonArgs[callback_KEY].indexOf("("));
@@ -1907,7 +1583,7 @@
 					alert(cbName + " is not a global function, callback function must be a global function!");
 					return;
 				}
-				
+
 				var newCallBackFnName = callback_KEY + $summer.UUID(8, 16);//anonymous method
 				while(window[newCallBackFnName]){
 					newCallBackFnName =  callback_KEY + $summer.UUID(8, 16);//anonymous method
@@ -1921,33 +1597,33 @@
 						//$alert(args);
 						if(args == undefined)
 							args = sender;
-						callbackFn(sender, args);	
+						callbackFn(sender, args);
 					}catch(e){
 						alert(e);
 					}finally{
 						delete window[newCallBackFnName];
 						//alert("del ok");
 						//alert(typeof window[newCallBackScript.substring(0,newCallBackScript.indexOf("("))]);
-					}				
+					}
 				}
 				jsonArgs[callback_KEY] = newCallBackFnName + "()";
 			}
-		},        
+		},
 		callAction : function(controllerName, actionName, params, isDataCollect, callbackActionID, contextmapping, customArgs){
 			if(arguments.length == 1 && typeof arguments[0] == "object"){
 				var args = {};
 				/*
-				args  = {
-					viewid:"xxx.xxx.xx",
-					action:"methodName",
-					params:{a:1,b:2},
-					//isDataCollect:true,
-					autoDataBinding:true,//请求回来会是否进行数据绑定
-					contextmapping:"fieldPath",//将返回结果映射到指定的Context字段上，默认为替换整个Context
-					callback:"actionid",			
-					error:"errorActionId"//失败回调的ActionId			
-				}
-				*/
+				 args  = {
+				 viewid:"xxx.xxx.xx",
+				 action:"methodName",
+				 params:{a:1,b:2},
+				 //isDataCollect:true,
+				 autoDataBinding:true,//请求回来会是否进行数据绑定
+				 contextmapping:"fieldPath",//将返回结果映射到指定的Context字段上，默认为替换整个Context
+				 callback:"actionid",
+				 error:"errorActionId"//失败回调的ActionId
+				 }
+				 */
 				args = controllerName;
 				var sysParam = {
 					viewid:"xxx.xxx.xx",
@@ -1956,15 +1632,15 @@
 					//isDataCollect:true,
 					autoDataBinding:true,//请求回来会是否进行数据绑定
 					contextmapping:"fieldPath",//将返回结果映射到指定的Context字段上，默认为替换整个Context
-					callback:"actionid",			
-					error:"errorActionId"//失败回调的ActionId			
+					callback:"actionid",
+					error:"errorActionId"//失败回调的ActionId
 				};
 				for(key in args){
 					if(!sysParam.hasOwnProperty(key) && typeof args[key] == "string"){
-						args[key] = $stringToJSON(args[key]);
+						args[key] = $summer.strToJson(args[key]);
 					}
 				}
-				return s.service.call("UMService.callAction", args, false);
+				return s.callService("UMService.callAction", args, false);
 			}else{
 				var args = {};
 				args["viewid"] = controllerName;
@@ -1979,59 +1655,171 @@
 					}
 				}
 				//$service.call("UMService.callAction","{callback:'myback', contextmapping:'data'，viewid:'"+controllerName+"',isDataCollect:'false',params:{demo:'demo'},action:'needPwd'}");
-				return s.service.call("UMService.callAction", args);
+				return s.callService("UMService.callAction", args);
+			}
+		},
+		get: function (json) {
+			/*	参数：
+			 url : 请求的ID
+			 callback : 用于绑定webview的字段名
+			 */
+			if($summer.isJSONObject(json)){
+				if(!json.url){
+					alert("请输入请求的url");
+					return;
+				}
+				return s.callService("UMService.get", json, false);
+			}else{
+				alert("参数不是有效的JSONObject");
+			}
+		},
+		post: function (json) {
+			/*	参数：
+			 url : "http://academy.yonyou.com/api/loginLx.ashx",//请求的url,
+			 data: {key:"6480-4230-27FD-8AA0",user:"apitest",pwd:"123456"},
+			 callback : "mycallback()"
+			 */
+			if($summer.isJSONObject(json)){
+				if(!json.url){
+					alert("请输入请求的url");
+					return;
+				}
+				return s.callService("UMService.post", json, false);
+			}else{
+				alert("参数不是有效的JSONObject");
 			}
 		}
 	};//s.service end
 
-	
-	
 	///////////////////////////////////////////////////////////////////////////////////////////
 	//summser.UMDevie.writeFile()
 	//summer.camera.open() --->summer.openCamera()
 	s.UMDevice = {
-		writeFile : function(filePath, content){
-			var args = {};
-			if(filePath)
-				args["path"] = filePath;
-			if(content)
-				args["content"] = content;
-			return s.service.call("UMFile.write", args, false);
+		_deviceInfo_Screen :null,
+		getTimeZoneID : function(){
+			return	s.callService("UMDevice.getTimeZoneID", "", true);
+		} ,
+		getTimeZoneDisplayName : function(){
+			return	s.callService("UMDevice.getTimeZoneDisplayName", {}, true); //无参调用统一使用{}
 		},
-		readFile : function(filePath){
-			var strContent = ""; 
-			var args ={};
-			if(filePath)
-				args["path"] = filePath;
-			strContent = s.service.call("UMFile.read", args, true);	
-			
-			//苹果安卓统一返回处理结果
-			if(strContent && strContent != ""){
-				try{
-					/*  取出缓存的值不再强行转化为json，按照绝大多数平台通常的处理方式，缓存取出来后必要时需自行类型转化
-					obj = $stringToJSON(strContent);
-					return obj;
-					*/
-					return strContent;
-				}catch(e){
-					return strContent;
-				}
+		openAddressBook: function () {
+			return s.callService("UMDevice.openAddressBook",{});
+
+		},
+		getInternalMemoryInfo: function () {
+			return s.callService("UMDevice.getInternalMemoryInfo",{},true);
+		},
+		getExternalStorageInfo: function () {
+			return s.callService("UMDevice.getExternalStorageInfo",{},true);
+		},
+		getMemoryInfo: function () {
+			return s.callService("UMDevice.getMemoryInfo",{},true);
+		},
+		openWebView: function (args) {
+			if(!$summer.isJSONObject(args)){
+				alert("调用gotoMapView服务时，参数不是一个有效的JSONObject");
+			}
+			/*
+			 var args = {url:"http://www.baidu.com"};
+			 */
+			return s.callService("UMDevice.openWebView", args);
+		},
+		screenShot: function (args) {
+
+			return s.callService("UMDevice.screenshot",args,true);
+		},
+		notify: function (args) {
+			/*var params = {
+			 "sendTime" : "2015-02-03 13:54:30",
+			 "sendBody" : "您设置了消息提醒事件",
+			 "icon": "app.png"
+			 };*/
+			s.callService("UMService.localNotification", args);
+		},
+		getDeviceInfo: function (jsonArgs) {
+			var result = "";
+			if(jsonArgs){
+				result = s.callService("UMDevice.getDeviceInfo", $summer.jsonToStr(jsonArgs), false);
 			}else{
-				return null;
+				result = s.callService("UMDevice.getDeviceInfo", "", true);
+			}
+			return JSON.parse(result);
+		},
+		getScreenWidth: function () {
+			if(!this._deviceInfo_Screen){
+				var strd_info = this.getDeviceInfo();
+				var info = $summer.strToJson(strd_info);
+				this._deviceInfo_Screen = info.screen;
+			}
+			if(this._deviceInfo_Screen){
+				return this._deviceInfo_Screen.width;
+			}else{
+				alert("未能获取到该设备的屏幕信息");
 			}
 		},
-		openCamera : function(args){
-			if($validator.checkIfExist(args, ["callback","compressionRatio"]))
-				return s.service.call("UMDevice.openCamera", args, false);
-		}
-		
+		getScreenHeight: function () {
+			if(!this._deviceInfo_Screen){
+				var strd_info = this.getDeviceInfo();
+				var info = $summer.strToJson(strd_info);
+				this._deviceInfo_Screen = info.screen;
+			}
+			if(this._deviceInfo_Screen){
+				return this._deviceInfo_Screen.height;
+			}else{
+				alert("未能获取到该设备的屏幕信息");
+			}
+		},
+		getScreenDensity: function () {
+			if(!this._deviceInfo_Screen){
+				var strd_info = this.getDeviceInfo();
+				var info = $summer.strToJson(strd_info);
+				this._deviceInfo_Screen = info.screen;
+			}
+			if(this._deviceInfo_Screen){
+				return this._deviceInfo_Screen.density;
+			}else{
+				alert("未能获取到该设备的屏幕信息");
+			}
+		},
+		currentOrientation: function () {
+			return s.callService("UMDevice.currentOrientation", {}, true);
+		},
+		capturePhoto: function (args) {
+			if(!$summer.isJSONObject(args)){
+				alert("调用capturePhoto服务时，参数不是一个有效的JSONObject");
+			}
+			s.callService("UMDevice.capturePhoto", args);
+		},
+		getAlbumPath: function (args) {
+			return s.callService("UMDevice.getAlbumPath", typeof args == "undefined" ? {} : args, true);
+		},
+		getAppAlbumPath: function (jsonArgs) {
+			if(jsonArgs){
+				if(!$summer.isJSONObject(jsonArgs)){
+					alert("调用 getAppAlbumPath 服务时，参数不是一个有效的JSONObject");
+					return;
+				}
+			}else{
+				jsonArgs = {};
+			}
+			return s.callService("UMDevice.getAppAlbumPath", jsonArgs, true);
+		},
+		getContacts: function () {
+			return s.callService("UMDevice.getContactPerson", {}, true);
+		},
+		saveContact: function (args) {
+			if(!$summer.isJSONObject(args)){
+				alert("调用saveContact服务时，参数不是一个有效的JSONObject");
+			}
+			s.callService("UMDevice.saveContact", args);
+		},
 	};
 	s.UMFile = {
 		remove : function(args){
-			return s.service.call("UMFile.remove", args, false);//默认异步
+			return s.callService("UMFile.remove", args, false);//默认异步
 		},
 		exists : function(args){
-			return s.service.call("UMFile.exists", args, true);
+			return s.callService("UMFile.exists", args, true);
 		},
 		download : function(jsonArgs){
 			if($summer.isEmpty(jsonArgs.url)){
@@ -2050,26 +1838,315 @@
 				alert("参数callback不能为空 ");
 			}
 			jsonArgs["__keepCallback"] = true;
-			return s.service.call("UMFile.download", jsonArgs);//默认异步
+			return s.callService("UMFile.download", jsonArgs);//默认异步
 		},
 		open : function(args){
 			if(!$summer.isJSONObject(args)){
 				alert("调用$file.open方法时，参数不是一个有效的JSONObject");
 			}
-			return s.service.call("UMDevice.openFile", args, false);//调用的是UMDevice的方法
+			return s.callService("UMDevice.openFile", args, false);//调用的是UMDevice的方法
 		},
 		getFileInfo : function(args){
 			var json = args;
 			if(typeof args == "string"){
 				json = {"path" : args};
 			}
-			return s.service.call("UMFile.getFileInfo",json, true);
+			return s.callService("UMFile.getFileInfo",json, true);
 		}
 
 	};
-	s.writeFile = s.UMDevice.writeFile;
-	s.readFile = s.UMDevice.readFile;
-	s.openCamera = s.UMDevice.openCamera;
+	s.UMTel = {
+		call: function (tel) {
+			if($summer.os=='android' || $summer.os=='ios') {
+				s.callService("UMDevice.callPhone", '{"tel":"'+tel+'"}');
+			}else{
+				alert("Not implementate UMP$Services$Telephone$call in $summer.os == " + $summer.os);
+			}
+		},
+		sendMsg: function (tel, body) {
+			if(arguments.length == 1 && $summer.isJSONObject(arguments[0])){
+				var args = tel;
+				if($summer.os=='android' || $summer.os=='ios') {
+					return s.callService("UMDevice.sendMsg", args);
+				}
+			}else{
+				if( $summer.os=='android' || $summer.os=='ios') {
+					//$service.call("UMDevice.sendMessage", "{recevie:'"+tel+"',message:'"+body+"'}");
+					s.callService("UMDevice.sendMsg", "{tel:'"+tel+"',body:'"+body+"'}");
+				}
+			}
+		},
+		sendMail: function (receive, title, content) {
+			var args = {};
+			if(arguments.length == 1 && $summer.isJSONObject(arguments[0])){
+				args = receive;
+			}else{
+				args["receive"] = receive;
+				args["title"] = title;
+				args["content"] = content;
+			}
+			return s.callService("UMDevice.sendMail", args);
+		}
+
+	};
+	s.UMCamera={
+		open: function (args) {
+			if($summer.checkIfExist(args, ["bindfield","callback","compressionRatio"]))
+				return s.callService("UMDevice.openCamera",args,false);
+		},
+		openPhotoAlbum: function (json) {
+			if(!json) return;
+			var args = {};
+			if(json.bindfield)
+				args["bindfield"] = json["bindfield"];
+			if(json.callback)
+				args["callback"] = json["callback"];
+			if(json.compressionRatio)
+				args["compressionRatio"] = json["compressionRatio"];
+			return s.callService("UMDevice.openPhotoAlbum", args, false)//异步调用服务
+		}
+	}
+	s.UMScanner={
+		open: function (jsonArgs) {
+			var result = "";
+			if(jsonArgs){
+				if(jsonArgs["frameclose"] == null){
+					jsonArgs["frameclose"] =  "true";//默认扫描后关闭
+				}
+				result = s.callService("UMDevice.captureTwodcode", jsonArgs, false);
+			}else{
+				result = s.callService("UMDevice.captureTwodcode", "", true);
+			}
+		},
+		generateQRCode: function (jsonArgs) {
+			//twocode-size  //二维码大小，默认180*180，二维码为正方形
+			//twocode-content  //二维码内容，字符串
+			if($summer.isJSONObject(jsonArgs)){
+				if(typeof jsonArgs["size"] != "undefined"){
+					jsonArgs["twocode-size"] =  jsonArgs["size"];
+				}
+				if(typeof jsonArgs["content"] != "undefined"){
+					jsonArgs["twocode-content"] =  jsonArgs["content"];
+				}
+				if(typeof jsonArgs["twocode-size"] == "undefined"){
+					jsonArgs["twocode-size"] =  "180";
+				}
+				if(typeof jsonArgs["twocode-content"] == "undefined"){
+					alert("参数twocode-content不能为空，此参数用来标识扫描二维码后的返回值");
+					return;
+				}
+			}else{
+				alert("generateQRCode方法的参数不是一个有效的JSONObject!");
+				return;
+			}
+
+			return s.callService("UMDevice.createTwocodeImage", jsonArgs, true);
+		},
+	};
+	s.UMNet={
+		available: function () {
+			var result = false;
+			if($summer.os=='android' || $summer.os=='ios'){
+				result = s.callService("UMNetwork.isAvailable", {}, true);
+			}
+			if(result != null && result.toString().toLowerCase() == "true"){
+				return true;
+			}else{
+				return false;
+			}
+		},
+		getNetworkInfo: function () {
+			var result = s.callService("UMNetwork.getNetworkInfo", {}, true);//同步
+			if(typeof result == "String"){
+				return $summer.strToJson(result);
+			}else{
+				return result;
+			}
+		}
+	};
+	s.UMSqlite={
+		openDB:function(args){
+			if($summer.isJSONObject(args) && !$summer.isEmpty(args["db"])){
+				return s.callService(this.UMSQLite_openDB, args, false);
+			}else{
+				alert("参数不是一个有效的JSONObject，请使用openDB({...})形式的API");
+			}
+		},
+		execSql: function (args) {
+			if($summer.isJSONObject(args)){
+				if($summer.isEmpty(args["db"])){
+					alert("请输入参数db");
+					return;
+				}
+				if($summer.isEmpty(args["sql"])){
+					alert("请输入参数sql");
+					return;
+				}
+				return s.callService("UMSQLite.execSql", args, true);
+			}else{
+				alert("参数不是一个有效的JSONObject，请使用execSql({...})形式的API");
+			}
+		},
+		//查询记录并分页返回
+		//参数db：必选 数据库名字
+		//参数sql：必选   查询sql语句
+		//参数startIndex： 可选  起始记录数索引 默认0
+		//参数endIndex：  可选  结束记录索引（含） 默认9
+		query: function (args) {
+			/*
+			 $sqlite.query({
+			 "db" : dbname,
+			 "sql" : sql,
+			 "startIndex" : 0,   //从第几条记录开始
+			 "endIndex" : 9   //到第几条记录结束(含)
+			 });
+			 */
+			if($summer.isJSONObject(args)){
+				/*
+				 if($isEmpty(args["startIndex"])){
+				 args["startIndex"] = 0;
+				 }
+				 if($isEmpty(args["endIndex"])){
+				 args["endIndex"] = 9;
+				 }
+				 */
+				return s.callService("UMSQLite.query", args, true);
+			}else{
+				alert("参数不是一个有效的JSONObject，请使用query({...})形式的API");
+			}
+		},
+		//查询返回指定页面的数据
+		//参数db：必选 数据库名字
+		//参数sql：必选   查询sql语句
+		//参数pagesize：  可选  每页记录数 默认10
+		//参数pageIndex： 可选  指定页码 默认0
+		queryByPage: function (args) {
+			/*
+			 $sqlite.queryByPage({
+			 "db" : dbName,
+			 "sql" : sql,
+			 "pageSize" : pageSize,   //pageIndex=页号，从0开始
+			 "pageIndex" : pageNo //pageSize=每页的记录数，从1开始
+			 })
+			 */
+			if($summer.isJSONObject(args)){
+				if($summer.isEmpty(args["pageSize"])){
+					args["pageSize"] = 10;
+				}
+				if($summer.isEmpty(args["pageIndex"])){
+					args["pageIndex"] = 0;
+				}
+				return s.callService("UMSQLite.queryByPage", args, true);
+			}else{
+				alert("参数不是一个有效的JSONObject，请使用queryByPage({...})形式的API");
+			}
+		},
+		exist: function (args) {
+			if($summer.isJSONObject(args)){
+				if($summer.isEmpty(args["db"])){
+					alert("请输入参数db");
+					return;
+				}
+				return s.callService("UMSQLite.exist", args, true);
+			}else{
+				alert("参数不是一个有效的JSONObject，请使用exist({...})形式的API");
+			}
+		}
+	};
+	s.UMCache={
+		writeFile : function(filePath, content){
+			var args = {};
+			if(filePath)
+				args["path"] = filePath;
+			if(content)
+				args["content"] = content;
+			return s.callService("UMFile.write", args, false);
+		},
+		readFile : function(filePath){
+			var strContent = "";
+			var args ={};
+			if(filePath)
+				args["path"] = filePath;
+			strContent = s.callService("UMFile.read", args, true);
+
+			//苹果安卓统一返回处理结果
+			if(strContent && strContent != ""){
+				try{
+					/*  取出缓存的值不再强行转化为json，按照绝大多数平台通常的处理方式，缓存取出来后必要时需自行类型转化
+					 obj = $stringToJSON(strContent);
+					 return obj;
+					 */
+					return strContent;
+				}catch(e){
+					return strContent;
+				}
+			}else{
+				return null;
+			}
+		}
+	}
+	/*service*/
+	s.callService = s.UMService.call;
+	s.callAction = s.UMService.callAction;
+	/*device*/
+	s.getTimeZoneID = s.UMDevice.getTimeZoneID;
+	s.getTimeZoneDisplayName = s.UMDevice.getTimeZoneDisplayName;
+	s.openAddressBook= s.UMDevice.openAddressBook;
+	s.getInternalMemoryInfo = s.UMDevice.getInternalMemoryInfo;
+	s.getExternalStorageInfo = s.UMDevice.getExternalStorageInfo;
+	s.getMemoryInfo = s.UMDevice.getMemoryInfo;
+	s.openWebView = s.UMDevice.openWebView;
+	s.screenShot = s.UMDevice.screenShot;
+	s.notify = s.UMDevice.notify;
+	s.getDeviceInfo = s.UMDevice.getDeviceInfo;
+	s.getScreenWidth = s.UMDevice.getScreenWidth;
+	s.getScreenHeight = s.UMDevice.getScreenHeight;
+	s.getScreenDensity = s.UMDevice.getScreenDensity;
+	s.currentOrientation = s.UMDevice.currentOrientation;
+	s.capturePhoto = s.UMDevice.capturePhoto;
+	s.getAlbumPath = s.UMDevice.getAlbumPath;
+	s.getAppAlbumPath = s.UMDevice.getAppAlbumPath;
+	s.getContacts = s.UMDevice.getContacts;
+	s.saveContact = s.UMDevice.saveContact;
+	//
+	s.removeFile = s.UMFile.remove;
+ 	s.exists = s.UMFile.exists;
+ 	s.download = s.UMFile.download;
+ 	s.openFile = s.UMFile.open;
+ 	s.getFileInfo = s.UMFile.getFileInfo;
+	/*tel*/
+	s.callPhone= s.UMTel.call;
+	s.sendMsg= s.UMTel.sendMsg;
+	s.sendMail= s.UMTel.sendMail;
+	/*cache*/
+	s.writeFile = s.UMCache.writeFile;
+	s.readFile = s.UMCache.readFile;
+	/*camera*/
+	s.openCamera= s.UMCamera.open;
+	s.openPhotoAlbum = s.UMCamera.openPhotoAlbum;
+	/*scanner*/
+	s.openScanner= s.UMScanner.open;
+	s.generateQRCode= s.UMScanner.generateQRCode;
+	/*net*/
+	s.netAvailable= s.UMNet.available;
+	s.getNetworkInfo= s.UMNet.getNetworkInfo;
+
+	s.ajax=function(json, successFn, errFn){
+		if(json.type == "get"){
+			return cordovaHTTP.get(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
+		}else if(json.type == "post"){
+			return cordovaHTTP.post(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
+		}
+	};
+	s.get=function(url, param, header, successFn, errFn){
+		return cordovaHTTP.get(url || "", param || {}, header || {}, successFn, errFn);
+	};
+	s.post=function(url, param, header, successFn, errFn){
+		return cordovaHTTP.post(url || "", param || {}, header || {}, successFn, errFn);
+	};
+	s.getLocation=function(successFn, errFn){
+		return navigator.geolocation.getCurrentPosition(successFn, errFn);
+	};
 
 }(window,summer);
 

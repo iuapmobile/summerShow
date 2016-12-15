@@ -6,7 +6,7 @@
 		<title></title>
 		<link rel="stylesheet" href="../../css/iuapmobile.um.css">
 		<link rel="stylesheet" href="../../css/font-icons.css">
-		<script src="../../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
+	 
 		<script src="../../js/summer.js" ></script>
 		<script src="../../js/jquery.min.js" ></script>
 		<script src="../../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
@@ -25,8 +25,8 @@
 			<div id="content" class="um-content">
 					
                     <div    class="um-header um-header-personal">
-                     
-                        <p class="tc pt15">
+                     <a href="#" class="um-back">返回</a>
+                        <p class="tc pt15 um-photo">
                     		<img class="um-circle" height=60 width=60 src="../../img/user.png" alt="..." alt="点击上传图片">
                         </p>
                         <p class="tc  um-white user-name">点击上传头像</p>
@@ -94,7 +94,7 @@
 		<script>
 			//返回按钮
 			$('.um-back').click(function(){
-				summer.closewin();
+				summer.closeWin();
 			});
 		</script>
 	</body>	

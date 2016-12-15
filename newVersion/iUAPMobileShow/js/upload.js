@@ -1,13 +1,13 @@
- 
+
 $(function () {
-    $('.um-header-personal').on('click', function () {
+    $('.um-photo').on('click', function () {
         UM.actionsheet({
             title: '选择照片',
             items: ['拍照上传', '本地上传'],
             callbacks: [function () {
-                $camera.open({
+                 summer.openCamera({
                     callback : function(args){
-                    	$alert(args);
+                    	 
                         //
                         //$('.um-header-personal .um-circle').attr('src',args.imgPath);
                         $('.um-header-personal .user-name').text('思战');	                        
@@ -31,7 +31,7 @@ $(function () {
                     }
                 });
             }, function () {
-                $camera.openPhotoAlbum(
+                summer.openPhotoAlbum(
                     {
                         callback: function (args) {
                             //$('.um-header-personal .um-circle').attr('src',args.imgPath);

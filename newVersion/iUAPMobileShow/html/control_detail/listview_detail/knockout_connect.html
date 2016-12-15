@@ -10,7 +10,6 @@
 
 		<script src="../../../js/jquery.min.js" ></script>
 		<script src="../../../js/summer.js" ></script>
-		<script src="../../../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
 		<script src="../../../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
         <script type="text/javascript" src="../../../js/knockout-2.2.0.js"></script>
         <script type="text/javascript" src="../../../js/Frameworks/iuapmobile.frameworks.sortlist-2.7.0.js"></script>
@@ -55,6 +54,7 @@
         	$('.um-back').click(function(){
 		 		summer.closeWin();
 		 	});
+		 	summerready=function(){
         	$(function () {		    		
         		//Knockout绑定
         		var ViewModel = function () {               
@@ -101,6 +101,7 @@
         		//设置右侧导航
         		//sortList.setNaviItems(["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]);
         	});
+        }
         </script>
 	</body>
 </html>
